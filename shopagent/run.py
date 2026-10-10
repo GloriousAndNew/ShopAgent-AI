@@ -11,6 +11,10 @@ def main():
     args = parser.parse_args()
     os.environ['SHOPAGENT_ENV']=args.environment
     with socket.socket() as sock:
+        # Unix 停机后的 TIME_WAIT 不代表已有服务；与 Uvicorn 的监听选项一致。
+        # Windows 的地址复用语义不同，仍使用独占检查。
+        if os.name != 'nt':
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try:
             sock.bind(("127.0.0.1", args.port))
         except OSError:

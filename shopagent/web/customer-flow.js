@@ -14,7 +14,8 @@ function applyEntryPresentation(runtime){
     for(const [i,node] of [...document.querySelectorAll('.art-chip')].entries())node.textContent=['商品查询','库存优惠','人工咨询'][i]??'';
     $('welcome').querySelector('p').textContent='可以咨询商品、库存、优惠和店铺政策。订单与售后处理请联系人工客服。';
     $('welcome-prompts').replaceChildren();$('quick-prompts').replaceChildren();
-    for(const [title,text] of [['选购商品','200 元以内的降噪耳机'],['核实库存','P001 黑色还有货吗'],['了解政策','发货和运费政策'],['优惠咨询','有哪些优惠活动']]){const b=el('button',undefined,'prompt');b.append(el('strong',title),el('small',text));b.onclick=()=>send(text);$('welcome-prompts').append(b);}
+    const inventoryPrompt=productionMode?'查库存需要提供哪些信息？':'P001 黑色还有货吗';
+    for(const [title,text] of [['选购商品','200 元以内的降噪耳机'],['核实库存',inventoryPrompt],['了解政策','发货和运费政策'],['优惠咨询','有哪些优惠活动']]){const b=el('button',undefined,'prompt');b.append(el('strong',title),el('small',text));b.onclick=()=>send(text);$('welcome-prompts').append(b);}
     for(const text of ['200 元以内的降噪耳机','发货和运费政策']){const b=el('button',text);b.onclick=()=>send(text);$('quick-prompts').append(b);}
     $('mode-badge').textContent='商品咨询 · 本地试运行';$('mode-composer').textContent='当前资料含示例，AI回答请核对。订单和售后请联系人工，不执行交易。';
     $('mode-title').textContent='店铺咨询';$('mode-detail').textContent='商品、库存、优惠与政策';

@@ -1,6 +1,6 @@
 # 完整 nginx.conf 模板。替换 YOUR_DOMAIN、证书路径后先运行 nginx -t。
 worker_processes auto;
-pid /tmp/nginx.pid;
+pid /run/nginx.pid;
 error_log /var/log/nginx/error.log warn;
 events { worker_connections 1024; }
 http {
