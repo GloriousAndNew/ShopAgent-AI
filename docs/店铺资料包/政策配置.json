@@ -1,0 +1,63 @@
+{
+  "schema_version": "1",
+  "status": "draft",
+  "simulation": true,
+  "publish": false,
+  "shipping": {
+    "enabled": false,
+    "demo_free_shipping_threshold_fen": 19900,
+    "demo_shipping_fee_fen": 800,
+    "regions": null,
+    "dispatch_time": null,
+    "carrier": null
+  },
+  "promotion": {
+    "id": "DEMO-EAR-10",
+    "enabled": false,
+    "demo_category": "耳机",
+    "rate_percent": 90,
+    "stackable": false,
+    "starts_at": null,
+    "ends_at": null,
+    "rounding": "floor_to_integer_fen"
+  },
+  "returns": {
+    "enabled": false,
+    "automatic_rejection_when_opened": false,
+    "requires_identity_verification": true,
+    "requires_customer_confirmation": true,
+    "quality_issue_requires_separate_review": true,
+    "return_address": null,
+    "return_contact": null
+  },
+  "human_service": {
+    "draft_hours": "工作日09:00—18:00 Asia/Shanghai",
+    "confirmed": false,
+    "external_notifications_enabled": false
+  },
+  "orders": {
+    "enabled": false,
+    "platform": null
+  },
+  "privacy": {
+    "retention_days": null,
+    "contact": null
+  },
+  "warranty": {
+    "months": null,
+    "confirmed": false
+  },
+  "policy_files": [
+    "政策草案/shipping.md",
+    "政策草案/stock.md",
+    "政策草案/return.md",
+    "政策草案/exchange.md",
+    "政策草案/warranty.md",
+    "政策草案/cancel.md",
+    "政策草案/refund.md",
+    "政策草案/invoice.md",
+    "政策草案/promotion.md",
+    "政策草案/privacy.md",
+    "政策草案/customer_service.md"
+  ]
+}

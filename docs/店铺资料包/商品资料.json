@@ -1,0 +1,397 @@
+{
+  "schema_version": "1",
+  "created_at": "2026-10-09",
+  "status": "draft",
+  "simulation": true,
+  "shop": {
+    "name": "青禾数码配件店（虚构）",
+    "category": "数码配件",
+    "timezone": "Asia/Shanghai",
+    "business_mode": "商品咨询试点，未连接交易平台"
+  },
+  "products": [
+    {
+      "id": "P101",
+      "name": "轻音主动降噪耳机",
+      "category": "耳机",
+      "price_fen": 18900,
+      "currency": "CNY",
+      "noise_cancel": true,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：入耳式；蓝牙连接；USB-C充电；含充电盒和耳帽。适用场景：通勤、日常听音。未提供：续航、防水等级、降噪分贝、编码格式；客服不得猜测。",
+      "specification": "入耳式；蓝牙连接；USB-C充电；含充电盒和耳帽",
+      "use_cases": "通勤、日常听音",
+      "unknown_fields": [
+        "续航",
+        "防水等级",
+        "降噪分贝",
+        "编码格式"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P101-黑色",
+          "color": "黑色",
+          "stock": 12,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P101-白色",
+          "color": "白色",
+          "stock": 8,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P102",
+      "name": "云声主动降噪耳机",
+      "category": "耳机",
+      "price_fen": 15900,
+      "currency": "CNY",
+      "noise_cancel": true,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：入耳式；蓝牙连接；USB-C充电；含充电盒和耳帽。适用场景：预算较低的通勤用户。未提供：续航、防水等级、降噪分贝、编码格式；客服不得猜测。",
+      "specification": "入耳式；蓝牙连接；USB-C充电；含充电盒和耳帽",
+      "use_cases": "预算较低的通勤用户",
+      "unknown_fields": [
+        "续航",
+        "防水等级",
+        "降噪分贝",
+        "编码格式"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P102-黑色",
+          "color": "黑色",
+          "stock": 0,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P102-白色",
+          "color": "白色",
+          "stock": 15,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P103",
+      "name": "静享头戴降噪耳机",
+      "category": "耳机",
+      "price_fen": 32900,
+      "currency": "CNY",
+      "noise_cancel": true,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：头戴式；蓝牙连接；USB-C充电；含充电线。适用场景：偏好头戴佩戴的用户。未提供：重量、续航、防水等级、降噪性能；客服不得猜测。",
+      "specification": "头戴式；蓝牙连接；USB-C充电；含充电线",
+      "use_cases": "偏好头戴佩戴的用户",
+      "unknown_fields": [
+        "重量",
+        "续航",
+        "防水等级",
+        "降噪性能"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P103-黑色",
+          "color": "黑色",
+          "stock": 6,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P103-白色",
+          "color": "白色",
+          "stock": 4,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P104",
+      "name": "轻便蓝牙耳机",
+      "category": "耳机",
+      "price_fen": 8900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：入耳式；蓝牙连接；USB-C充电；含充电盒；不支持主动降噪。适用场景：入门听音、轻量日常使用。未提供：续航、防水等级、编码格式；客服不得猜测。",
+      "specification": "入耳式；蓝牙连接；USB-C充电；含充电盒；不支持主动降噪",
+      "use_cases": "入门听音、轻量日常使用",
+      "unknown_fields": [
+        "续航",
+        "防水等级",
+        "编码格式"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P104-黑色",
+          "color": "黑色",
+          "stock": 20,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P104-白色",
+          "color": "白色",
+          "stock": 10,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P105",
+      "name": "舒适头戴耳机",
+      "category": "耳机",
+      "price_fen": 12900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：头戴式；3.5毫米有线连接；不支持主动降噪；含音频线。适用场景：有3.5毫米音频接口的设备。未提供：转接兼容性、重量、麦克风规格；客服不得猜测。",
+      "specification": "头戴式；3.5毫米有线连接；不支持主动降噪；含音频线",
+      "use_cases": "有3.5毫米音频接口的设备",
+      "unknown_fields": [
+        "转接兼容性",
+        "重量",
+        "麦克风规格"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P105-黑色",
+          "color": "黑色",
+          "stock": 9,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P105-白色",
+          "color": "白色",
+          "stock": 7,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P106",
+      "name": "轻巧无线鼠标",
+      "category": "鼠标",
+      "price_fen": 7900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：无线接收器连接；USB-A接收器；左右按键和滚轮；电池另购。适用场景：办公、日常操作。未提供：DPI、静音认证、续航、具体系统兼容列表；客服不得猜测。",
+      "specification": "无线接收器连接；USB-A接收器；左右按键和滚轮；电池另购",
+      "use_cases": "办公、日常操作",
+      "unknown_fields": [
+        "DPI",
+        "静音认证",
+        "续航",
+        "具体系统兼容列表"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P106-黑色",
+          "color": "黑色",
+          "stock": 18,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P106-白色",
+          "color": "白色",
+          "stock": 16,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P107",
+      "name": "桌面机械键盘",
+      "category": "键盘",
+      "price_fen": 19900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：87键；USB有线连接；含USB连接线；不承诺热插拔轴体。适用场景：桌面办公、文字输入。未提供：轴体型号、背光模式、具体系统兼容列表；客服不得猜测。",
+      "specification": "87键；USB有线连接；含USB连接线；不承诺热插拔轴体",
+      "use_cases": "桌面办公、文字输入",
+      "unknown_fields": [
+        "轴体型号",
+        "背光模式",
+        "具体系统兼容列表"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P107-黑色",
+          "color": "黑色",
+          "stock": 11,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P107-白色",
+          "color": "白色",
+          "stock": 0,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P108",
+      "name": "多模机械键盘",
+      "category": "键盘",
+      "price_fen": 29900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：87键；USB有线和蓝牙连接；含USB连接线；不承诺热插拔轴体。适用场景：需要无线连接的桌面用户。未提供：轴体型号、续航、多设备切换上限；客服不得猜测。",
+      "specification": "87键；USB有线和蓝牙连接；含USB连接线；不承诺热插拔轴体",
+      "use_cases": "需要无线连接的桌面用户",
+      "unknown_fields": [
+        "轴体型号",
+        "续航",
+        "多设备切换上限"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P108-黑色",
+          "color": "黑色",
+          "stock": 5,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P108-白色",
+          "color": "白色",
+          "stock": 3,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P109",
+      "name": "耳机收纳包",
+      "category": "收纳包",
+      "price_fen": 3900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：拉链式；内尺寸15×12×6厘米；仅收纳包，不含耳机。适用场景：收纳尺寸适配的耳机及线材。未提供：防水等级、能否容纳某款头戴耳机；客服不得猜测。",
+      "specification": "拉链式；内尺寸15×12×6厘米；仅收纳包，不含耳机",
+      "use_cases": "收纳尺寸适配的耳机及线材",
+      "unknown_fields": [
+        "防水等级",
+        "能否容纳某款头戴耳机"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P109-黑色",
+          "color": "黑色",
+          "stock": 25,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P109-白色",
+          "color": "白色",
+          "stock": 12,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    },
+    {
+      "id": "P110",
+      "name": "折叠手机支架",
+      "category": "支架",
+      "price_fen": 5900,
+      "currency": "CNY",
+      "noise_cancel": false,
+      "status": "draft",
+      "simulation": true,
+      "description": "虚构商品，仅用于ShopAgent开发测试。示例规格：桌面折叠式；被动支撑；不含充电器，不提供充电功能。适用场景：桌面看视频、日常支撑手机。未提供：承重上限、平板兼容性、尺寸范围；客服不得猜测。",
+      "specification": "桌面折叠式；被动支撑；不含充电器，不提供充电功能",
+      "use_cases": "桌面看视频、日常支撑手机",
+      "unknown_fields": [
+        "承重上限",
+        "平板兼容性",
+        "尺寸范围"
+      ],
+      "brand": null,
+      "supplier": null,
+      "warranty_months": null,
+      "source": "AI生成的虚构开发资料，未经商家核实",
+      "skus": [
+        {
+          "id": "P110-黑色",
+          "color": "黑色",
+          "stock": 14,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        },
+        {
+          "id": "P110-白色",
+          "color": "白色",
+          "stock": 9,
+          "stock_as_of": "2026-10-09",
+          "simulation": true
+        }
+      ]
+    }
+  ]
+}

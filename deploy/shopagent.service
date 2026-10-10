@@ -1,0 +1,32 @@
+[Unit]
+Description=ShopAgent AI single-host service
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=shopagent
+Group=shopagent
+WorkingDirectory=/opt/shopagent
+EnvironmentFile=/etc/shopagent/runtime.env
+EnvironmentFile=/etc/shopagent/model.env
+Environment=PYTHONUNBUFFERED=1
+StateDirectory=shopagent
+StateDirectoryMode=0700
+ExecStart=/opt/shopagent/.venv/bin/python -m shopagent.run --environment production --port 8001
+Restart=on-failure
+RestartSec=5
+KillMode=control-group
+KillSignal=SIGINT
+TimeoutStopSec=45
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/shopagent
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+# 可选的 DeepSeek 配置样例。采用前先注册自己的官方 API 账号。
+# 将内容复制到项目根目录 agent.toml；密钥另填本地 .env。
+[agent]
+mode = "llm"
+protocol = "chat_completions"
+base_url = "https://api.deepseek.com"
+model = "deepseek-flash"
+thinking_mode = "disabled"
+max_steps = 6
+max_tool_calls = 8
+max_output_tokens = 1200
+timeout_seconds = 60

@@ -1,0 +1,1438 @@
+<!DOCTYPE html><html lang="zh-CN"><meta charset="utf-8"><title>ShopAgent AI 原始项目正文</title><style>body{max-width:1100px;margin:40px auto;font:16px/1.8 sans-serif;padding:0 24px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:8px}pre{overflow:auto;background:#f5f5f5;padding:16px}</style><body><p><strong>图文完整性说明：</strong>本页保留了项目全部文字正文。原文引用的 5 张不同外部图片在附件相对路径未找到，图片引用保持原样。</p><p>来源：用户提供的全站文档中 p0021 项目的 detail 正文。保留原文；其中规模、收益与上线叙述仅作为教学材料，不能视作已验证事实。</p><h1 id="15-agentshopagent-ai">1.5 智能电商客服 Agent（ShopAgent AI）</h1>
+<blockquote>
+<p><strong>推荐项目名称</strong>：以下名称均可在简历中使用，根据面试岗位侧重选择：
+- <strong>通用名</strong>：<code>ShopAgent AI 智能电商客服 Agent 系统</code>
+- <strong>偏后端/架构</strong>：<code>基于 A2A 多代理的电商智能客服平台</code>
+- <strong>偏算法/数据</strong>：<code>基于 LLM + MCP 的电商智能决策系统</code></p>
+</blockquote>
+<h2 id="_1">一、项目背景</h2>
+<h3 id="11">1.1 所属行业分类</h3>
+<p>电商零售 / AI 智能客服与导购。</p>
+<h3 id="12">1.2 为什么做这个项目</h3>
+<p>某头部电商平台年 GMV 超 500 亿，日均咨询量 10 万+，客服团队 200 人。过去客服基于关键词匹配回答，回答生硬且覆盖有限，用户满意度仅 65%。平台决定开发 AI 电商助手——<strong>ShopAgent AI</strong>，能够理解用户的购物需求，自动查询商品信息、订单状态、物流信息，提供个性化导购建议。</p>
+<p>此前平台使用传统客服机器人，FAQ 匹配率低，复杂问题需转人工。技术部决定采用 AI Agent 架构，通过 MCP 对接商品系统、订单系统、物流系统，实现智能电商客服。</p>
+<p>项目立项的核心驱动力是<strong>成本与体验的双重压力</strong>。200 人客服团队每年人力成本超 2000 万（按人均年薪 10 万计算），但用户满意度长期徘徊在 65%——用户吐槽"回答像机器人""问半天得不到答案"。更关键的是，大促期间（双11、618）咨询量暴涨 5-10 倍，客服团队根本扛不住，用户排队 30 分钟是常态，流失率高达 15%。</p>
+<p>技术部调研后发现，传统客服机器人的问题在于<strong>只能匹配关键词，无法理解用户真实意图</strong>。用户问"有没有 200 以内的蓝牙耳机"，机器人只能匹配"蓝牙耳机"关键词，无法理解价格筛选条件；用户问"送妈妈什么礼物好"，机器人直接返回 FAQ 列表，无法结合用户画像做个性化推荐。</p>
+<p>AI Agent 架构的优势在于：<strong>LLM 理解自然语言 + MCP 工具调用外部系统 + 多 Agent 协作处理复杂任务</strong>。用户说"我昨天下的订单什么时候到"，Agent 能理解这是"物流跟踪"意图，自动调用订单查询和物流跟踪工具，秒级返回结果。这种架构让系统既能处理简单查询（商品咨询、订单跟踪），也能处理复杂任务（退换货、个性化推荐），真正实现"像人一样理解用户需求"。</p>
+<p>项目目标很明确：<strong>客服人力成本降低 50%，用户满意度提升到 85%+</strong>。通过 AI 助手处理 70% 的常规咨询，让人工客服专注处理复杂投诉和高价值客户，实现"人机协作"的最优配置。</p>
+<h3 id="13">1.3 项目的痛点</h3>
+<ol>
+<li><strong>客服负载高</strong>：200 人客服团队应对日均 10 万+ 咨询，峰值排队 30 分钟</li>
+<li><strong>商品查询繁琐</strong>：客服需切换多个系统查询库存、价格、规格</li>
+<li><strong>订单跟踪慢</strong>：用户问订单状态，客服需手动查询物流系统</li>
+<li><strong>导购能力弱</strong>：传统机器人无法理解"适合送妈妈的礼物"等模糊需求</li>
+<li><strong>售后处理慢</strong>：退换货流程复杂，人工处理耗时长</li>
+</ol>
+<h3 id="14">1.4 项目的价值</h3>
+<ol>
+<li><strong>7×24 智能客服</strong>：AI 助手全天候处理咨询，响应时间从分钟级降至秒级</li>
+<li><strong>商品信息秒查</strong>：MCP 工具对接商品系统，秒级返回库存、价格、规格</li>
+<li><strong>订单自动跟踪</strong>：MCP 对接物流系统，实时返回订单状态</li>
+<li><strong>智能导购</strong>：基于用户偏好和历史购买，个性化推荐商品</li>
+<li><strong>售后自动化</strong>：AI 引导用户完成退换货流程，减少人工介入</li>
+</ol>
+<h3 id="15">1.5 目标用户</h3>
+<table>
+<thead>
+<tr>
+<th>用户类型</th>
+<th>使用场景</th>
+<th>规模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>购物用户</td>
+<td>商品咨询、订单查询、售后处理</td>
+<td>注册用户 2000 万+，DAU 10-15 万，MAU 150-200 万</td>
+</tr>
+<tr>
+<td>客服人员</td>
+<td>辅助查询、复杂问题处理</td>
+<td>200 人</td>
+</tr>
+<tr>
+<td>运营人员</td>
+<td>数据分析、用户画像</td>
+<td>100 人</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键流量指标</strong>：
+- 日均咨询量：10 万+ 次
+- 峰值并发：400-500（大促期间可达 1000+）
+- 高峰期：双11、618、年货节等大促期间</p>
+<h3 id="16">1.6 业务流程图</h3>
+<p><img alt="业务流程图" src="../img/05-%E7%94%B5%E5%95%86%E9%9B%B6%E5%94%AE%E8%A1%8C%E4%B8%9A-%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%9B%BE.png" /></p>
+<h3 id="17">1.7 官网/参考链接</h3>
+<ul>
+<li><a href="https://www.taobao.com">淘宝/天猫</a> —— 国内最大的电商平台。ShopAgent AI 的商品查询、导购推荐功能设计参考了淘宝的智能客服体系。学生上去可观察"阿里小蜜"如何回答商品咨询、如何处理退换货。</li>
+<li><a href="https://www.jd.com">京东</a> —— 以自营+物流见长的电商。OrderAgent 的物流跟踪功能参考了京东"极速达"的物流查询体验。学生可对比京东客服与淘宝客服的 AI 水平。</li>
+<li><a href="https://www.pinduoduo.com">拼多多</a> —— 主打下沉市场和团购。RecommendAgent 的"平价推荐""拼单推荐"策略参考了拼多多的推荐逻辑。学生可观察拼多多如何用 AI 做个性化推荐。</li>
+<li><a href="https://www.shopify.com">Shopify</a> —— 全球领先的独立站 SaaS 平台。本项目 API 层设计参考了 Shopify 的商家后台架构。学生了解即可，注册免费试用可体验完整电商后台。</li>
+<li><a href="https://www.youzan.com">有赞</a> —— 国内主流电商 SaaS 服务商。ProductAgent 的商品管理功能参考了有赞的商品库设计。学生可了解中小商家如何用 SaaS 工具搭建电商系统。</li>
+</ul>
+<h2 id="_2">二、简历上的项目</h2>
+<p><strong>项目名称</strong>：ShopAgent AI 智能电商客服 Agent 系统
+<strong>项目时间</strong>：2025.03 — 2025.12
+<strong>技术栈</strong>：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker</p>
+<p><strong>项目背景</strong>：为头部电商平台开发 AI 电商客服系统，对接商品系统、订单系统、物流系统，提供智能商品咨询、订单跟踪、售后处理服务。系统采用三层架构（MCP Server → A2A Agent → API Server），通过 A2A 多代理协作处理商品查询、订单跟踪、导购推荐等任务。</p>
+<p><strong>主要职责</strong>：
+1. 负责需求分析与方案设计：参与电商运营部、客服部、技术部 3 轮需求评审，梳理 8 类电商意图、13 个 MCP 工具接口规格，输出技术方案文档 20 页
+2. 设计并实现电商 MCP Server：开发 13 个电商 MCP 工具（商品咨询 4 个 + 订单处理 4 个 + 导购推荐 3 个 + 内部业务 2 个），通过 httpx 对接商品系统（PIM）、订单系统（OMS）、库存系统（WMS）、物流系统（TMS），编写接口文档与 Mock 测试
+3. 构建 A2A 多代理系统：实现 ProductAgent（商品咨询）/ OrderAgent（订单处理）/ RecommendAgent（导购推荐）三个子代理，支持 8 类电商意图自动路由，设计 Agent 间任务分发与结果汇聚机制
+4. 实现客户记忆系统：用户画像、购买历史、咨询记录、购物车、浏览历史 MySQL 持久化，按 user_id 严格隔离，设计 TTLCache 短期记忆 + MySQL 长期记忆双层架构
+5. 开发 Web 服务与前端对接：FastAPI + SSE 流式输出 + JWT 认证，编写 RESTful API 18 个接口，对接平台现有用户体系与 Web/APP 前端，支持 618/双 11 大促期间 2000 QPS 峰值
+6. 性能压测与调优：使用 Locust 模拟 1500 并发用户压测（覆盖 618 大促峰值），优化意图识别延迟从 3s 降至 800ms，商品查询响应 &lt; 150ms，系统支持 2000 QPS 主 Agent 并发
+7. 编写技术文档与部署交付：输出系统架构文档、MCP 工具清单、运维手册共 45 页，协助运维团队完成私有化部署与压测验收
+8. 客服培训与交付支持：面向 500 名客服开展 4 场系统使用培训，输出使用手册与 FAQ 文档，收集反馈迭代 15 个优化点，客服满意度提升 25%</p>
+<p><strong>项目成果</strong>：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务</p>
+<h3 id="1">1. 简历解读</h3>
+<p>在把上述 8 条职责写进简历之前，先理解它们"为什么这么写"——每一条对应面试官考察的一个能力维度，下面逐条拆解。</p>
+<p><strong>① 关键数据速查</strong>（写简历、答面试时随时对照，数字不能写错）</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目名称</td>
+<td>ShopAgent AI 智能电商客服 Agent 系统</td>
+</tr>
+<tr>
+<td>甲方画像</td>
+<td>某头部电商平台，年 GMV 超 500 亿，日均咨询量 10 万+，客服团队 200 人</td>
+</tr>
+<tr>
+<td>MCP 工具</td>
+<td>13 个（电商检索 9 + 内部业务 4；商品咨询 4 + 订单处理 4 + 导购推荐 3 + 内部 2）</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>3 个（ProductAgent 商品咨询 / OrderAgent 订单处理 / RecommendAgent 导购推荐）</td>
+</tr>
+<tr>
+<td>意图分类</td>
+<td>8 类（product_query / price_compare / inventory_check / order_query / logistics_track / return_apply / recommend_query / promotion_query）</td>
+</tr>
+<tr>
+<td>职责条数</td>
+<td>8 条（需求分析 / MCP Server / A2A Agent / 记忆系统 / Web 服务 / 压测调优 / 文档交付 / 培训支持）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>② 8 条职责逐条解读</strong>（每条对应一个能力维度，面试官会从这一条追问什么，心里要有数）</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>职责关键词</th>
+<th>体现的能力维度</th>
+<th>面试官可能的追问</th>
+<th>回答要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>需求分析与方案设计</td>
+<td>沟通与需求理解</td>
+<td>"8 类意图是怎么梳理出来的？"</td>
+<td>3 轮需求评审（运营 / 客服 / 技术），从客服日常高频问题中归纳；20 页技术方案含接口规格、时序图、风险点</td>
+</tr>
+<tr>
+<td>2</td>
+<td>电商 MCP Server</td>
+<td>工具开发与系统对接</td>
+<td>"13 个 MCP 工具怎么和甲方系统对接的？"</td>
+<td>httpx 异步调 PIM / OMS / WMS / TMS 四套系统；甲方字段→LLM 友好字段映射；签名鉴权（HMAC-SHA256）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A2A 多代理系统</td>
+<td>Agent 架构设计</td>
+<td>"3 个 Agent 之间怎么协作？意图怎么路由？"</td>
+<td>主 Agent 做意图分类→路由到对应子 Agent；复杂任务走 Planning + ReAct；Agent 间通过 A2A 协议传递任务与结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td>客户记忆系统</td>
+<td>数据建模与隔离</td>
+<td>"用户数据怎么隔离？记忆怎么分层？"</td>
+<td>TTLCache 短期（30 min）+ MySQL 长期（用户画像 / 订单 / 浏览 / 购物车）；按 username 严格隔离，WHERE 条件强制</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Web 服务与前端对接</td>
+<td>工程化能力</td>
+<td>"SSE 流式输出怎么实现？2000 QPS 怎么扛？"</td>
+<td>FastAPI + SSE + JWT；18 个 RESTful 接口；热门查询缓存 + 水平扩展 + 限流</td>
+</tr>
+<tr>
+<td>6</td>
+<td>性能压测与调优</td>
+<td>性能优化</td>
+<td>"3s → 800ms 是怎么优化的？"</td>
+<td>Locust 模拟 1500 并发；意图识别走本地小模型（去掉一次 LLM API 往返）；热门商品查询缓存 60s</td>
+</tr>
+<tr>
+<td>7</td>
+<td>技术文档与部署交付</td>
+<td>文档与交付</td>
+<td>"45 页文档包含哪些内容？"</td>
+<td>架构文档 + MCP 工具清单 + 运维手册；Docker Compose 一键部署 6 个服务；协助运维完成压测验收</td>
+</tr>
+<tr>
+<td>8</td>
+<td>客服培训与交付支持</td>
+<td>沟通与服务</td>
+<td>"500 名客服怎么培训？"</td>
+<td>4 场线下培训（每场 2 小时）；输出使用手册 + FAQ 文档；收集反馈迭代 15 个优化点</td>
+</tr>
+</tbody>
+</table>
+<p><strong>③ 简历撰写要点</strong>（避免踩坑）</p>
+<ol>
+<li><strong>数字必须一致</strong>：13 个 MCP、3 个 Agent、8 类意图、93%+ 准确率——简历 / 面试 / 项目文档必须统一，面试官会交叉验证。</li>
+<li><strong>动词要准</strong>：第 1、7、8 条用"参与 / 协助 / 面向"（体现协作），第 2-6 条用"设计并实现 / 构建 / 开发"（体现主导）——不要全部写成"负责"，会显得假。</li>
+<li><strong>结果要可量化</strong>：每条职责最好带数字（20 页文档、18 个接口、1500 并发、800ms），避免"大幅优化""显著提升"等模糊表述。</li>
+<li><strong>技术名词大小写</strong>：FastAPI（不是 fastapi）、MySQL（不是 mysql）、MCP（全大写）、A2A（全大写）、QPS（全大写）——面试官对大小写敏感。</li>
+</ol>
+<h3 id="2">2. 简历强化（按薪资档次）</h3>
+<h4 id="20k">版本一：20K+ 岗位简历版</h4>
+<blockquote>
+<p>适合 1-3 年经验、中级 Python 开发岗位</p>
+</blockquote>
+<p><strong>项目名称</strong>：ShopAgent AI 智能电商客服 Agent 系统
+<strong>项目时间</strong>：2025.03 — 2025.12
+<strong>技术栈</strong>：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker</p>
+<p><strong>项目背景</strong>：为头部电商平台开发 AI 电商客服系统，对接商品系统、订单系统、物流系统，提供智能商品咨询、订单跟踪、售后处理服务。系统采用三层架构（MCP Server → A2A Agent → API Server），通过 A2A 多代理协作处理商品查询、订单跟踪、导购推荐等任务。</p>
+<p><strong>主要职责</strong>：
+1. 负责需求分析与方案设计：参与电商运营部、客服部、技术部 3 轮需求评审，梳理 8 类电商意图、13 个 MCP 工具接口规格，输出技术方案文档 20 页
+2. 设计并实现电商 MCP Server：开发 13 个电商 MCP 工具（商品咨询 4 个 + 订单处理 4 个 + 导购推荐 3 个 + 内部业务 2 个），通过 httpx 对接商品系统（PIM）、订单系统（OMS）、库存系统（WMS）、物流系统（TMS），编写接口文档与 Mock 测试
+3. 构建 A2A 多代理系统：实现 ProductAgent（商品咨询）/ OrderAgent（订单处理）/ RecommendAgent（导购推荐）三个子代理，支持 8 类电商意图自动路由，设计 Agent 间任务分发与结果汇聚机制
+4. 实现客户记忆系统：用户画像、购买历史、咨询记录、购物车、浏览历史 MySQL 持久化，按 user_id 严格隔离，设计 TTLCache 短期记忆 + MySQL 长期记忆双层架构
+5. 开发 Web 服务与前端对接：FastAPI + SSE 流式输出 + JWT 认证，编写 RESTful API 18 个接口，对接平台现有用户体系与 Web/APP 前端，支持 618/双 11 大促期间 2000 QPS 峰值
+6. 性能压测与调优：使用 Locust 模拟 1500 并发用户压测（覆盖 618 大促峰值），优化意图识别延迟从 3s 降至 800ms，商品查询响应 &lt; 150ms，系统支持 2000 QPS 主 Agent 并发
+7. 编写技术文档与部署交付：输出系统架构文档、MCP 工具清单、运维手册共 45 页，协助运维团队完成私有化部署与压测验收
+8. 客服培训与交付支持：面向 500 名客服开展 4 场系统使用培训，输出使用手册与 FAQ 文档，收集反馈迭代 15 个优化点，客服满意度提升 25%</p>
+<p><strong>项目成果</strong>：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务</p>
+<hr />
+<h4 id="30k">版本二：30K+ 岗位简历版</h4>
+<blockquote>
+<p>适合 3-5 年经验、高级 Python 开发/初级架构岗位</p>
+</blockquote>
+<p><strong>技术栈</strong>：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker, LangSmith, vLLM（可选）</p>
+<p><strong>主要职责</strong>：
+1. 主导需求分析与架构设计：牵头 3 轮跨部门需求评审（运营/客服/技术），定义 8 类电商意图分类体系与 13 个 MCP 工具接口规范，输出技术方案文档 20 页并评审通过
+2. 主导电商 MCP Server 架构设计：设计三层 MCP 架构（接入层/业务层/数据层），开发 13 个电商 MCP 工具，统一封装 PIM/OMS/WMS/TMS 四套异构系统的 API 鉴权与字段映射
+3. 主导 A2A 多代理协作架构设计：设计"主 Agent 意图路由 + 3 个子 Agent 专业处理"的协作模式，定义 Agent 间任务分发协议与结果汇聚机制，支持 8 类意图自动路由与复杂售后 Planning + ReAct
+4. 主导客户记忆系统架构设计：设计"TTLCache 短期记忆（30min）+ MySQL 长期记忆"双层架构，定义 4 张核心表（用户画像/订单/浏览/购物车）的隔离策略与 TTL 清理机制，支持按 user_id 严格隔离
+5. 主导 Web 服务层与流式输出方案设计：基于 FastAPI 设计 18 个 RESTful 接口，设计 SSE 流式输出 + JWT 认证方案，引入 Redis 做会话缓存与热门查询缓存，支撑 618/双 11 大促 2000 QPS 峰值
+6. 主导性能优化方案设计：基于 LangSmith 全链路追踪定位瓶颈，将意图识别模型本地化（vLLM 部署），优化延迟从 3s 降至 800ms；Locust 压测 1500 并发，输出性能调优报告
+7. 主导技术文档与交付规范制定：输出架构设计文档、MCP 工具规格书、运维手册共 45 页，制定 Docker Compose 编排规范，协助运维完成私有化部署与压测验收
+8. 主导客服培训与迭代优化闭环：面向 500 名客服开展 4 场培训，建立"反馈 → 评估 → 迭代"闭环机制，收集反馈迭代 15 个优化点，客服满意度提升 25%</p>
+<p><strong>项目成果</strong>：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务</p>
+<hr />
+<h4 id="40k">版本三：40K+ 岗位简历版</h4>
+<blockquote>
+<p>适合 5 年+ 经验、技术负责人/架构师岗位</p>
+</blockquote>
+<p><strong>技术栈</strong>：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker, K8s, Prometheus, LangSmith, vLLM（可选）</p>
+<p><strong>主要职责</strong>：
+1. 负责整体架构设计并主导项目立项与技术选型：牵头 3 轮跨部门需求评审，决策采用"MCP + A2A + LangChain Agent"三层架构（对比 LangGraph/AutoGen 等方案），输出 20 页技术方案并完成技术可行性与风险评估
+2. 负责整体架构设计并决策 MCP 工具层架构：决策"统一 MCP Server + 分域工具"的组织方式（商品/订单/导购/内部），制定 13 个 MCP 工具的接口规范与版本管理策略，决策字段映射方案（甲方编码 → LLM 友好字段）与安全鉴权机制（HMAC-SHA256）
+3. 负责整体架构设计并决策 A2A 多代理协作模式：对比 LangGraph 与 A2A 协议后决策采用 A2A，设计"主 Agent 意图分类 + 3 子 Agent 专业处理"拓扑，定义 Agent 间 SLA（响应时间、重试策略、降级方案），支撑 8 类意图自动路由
+4. 负责整体架构设计并决策记忆系统架构与数据治理：决策"TTLCache + MySQL"双层记忆架构，制定数据隔离规范（按 user_id 严格 WHERE）、保留策略（订单永久/浏览 90 天/购物车 30 天）、归档机制，满足《电子商务法》与《个人信息保护法》合规要求
+5. 负责整体架构设计并决策 Web 服务层高可用方案：决策 FastAPI + Redis + K8s HPA 的弹性架构，制定 SSE 流式输出 + JWT 认证 + 限流策略，决策缓存策略（热门商品 60s TTL），支撑 618/双 11 大促 2000 QPS 峰值
+6. 负责整体架构设计并推动性能优化与可观测性体系建设：引入 LangSmith 全链路追踪 + Prometheus + Grafana 构建监控告警体系，决策将意图识别模型本地化（vLLM 部署 Qwen3-14B），推动意图识别延迟从 3s 降至 800ms，输出性能基线与 SLA 报告
+7. 负责整体架构设计并制定交付标准与运维规范：制定 Docker + K8s 部署规范，决策 6 个服务的编排顺序与资源配额，输出架构文档/MCP 工具规格书/运维手册共 45 页，主导压测验收与上线决策
+8. 负责整体架构设计并主导客户成功与持续迭代：面向 500 名客服开展 4 场培训，建立"反馈 → 评估 → 迭代"闭环机制，推动 15 个优化点落地，负责团队技术培养与能力建设，决策后续 RAG 知识库与多模态检索的演进路线</p>
+<p><strong>项目成果</strong>：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务</p>
+<h2 id="_3">三、项目的附带信息</h2>
+<h3 id="31">3.1 数据规模与来源</h3>
+<ul>
+<li><strong>MCP 工具数量</strong>：电商检索 9 个 + 内部业务 4 个 = 13 个</li>
+<li><strong>对接数据源</strong>：商品系统、订单系统、物流系统（顺丰/圆通 API）、用户行为系统</li>
+<li><strong>用户数据量级</strong>：注册用户 2000 万+，日均咨询 10 万+ 次</li>
+</ul>
+<h3 id="32">3.2 技术架构说明</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP 工具</td>
+<td>13 个（商品查询/库存检查/价格查询/订单跟踪/物流查询/退换货/...）</td>
+</tr>
+<tr>
+<td>Agent 数量</td>
+<td>3 个（ProductAgent / OrderAgent / RecommendAgent）</td>
+</tr>
+<tr>
+<td>意图分类</td>
+<td>8 类（商品咨询/订单查询/物流跟踪/退换货/优惠券/会员权益/导购推荐/促销活动）</td>
+</tr>
+<tr>
+<td>记忆系统</td>
+<td>用户偏好 + 浏览历史 + 购买记录 + 咨询历史（MySQL 持久化）</td>
+</tr>
+<tr>
+<td>规划策略</td>
+<td>简单查询直接执行，复杂售后 Planning + ReAct</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="系统架构图" src="../img/05-%E7%94%B5%E5%95%86%E9%9B%B6%E5%94%AE%E8%A1%8C%E4%B8%9A-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE.png" /></p>
+<h3 id="33-agent">3.3 Agent 详细说明</h3>
+<h4 id="331-productagent">3.3.1 ProductAgent（商品查询助手）</h4>
+<ul>
+<li><strong>职责</strong>：查询商品信息、检查库存、对比价格、解答商品参数问题。通俗说就是"问商品找它"。</li>
+<li><strong>关联 MCP 工具</strong>：search_products、get_product_detail、check_inventory、compare_prices</li>
+<li><strong>处理意图</strong>：product_query / price_compare / inventory_check</li>
+<li><strong>处理流程</strong>：用户说"有没有 200 以内的蓝牙耳机" → Agent 提取品类=蓝牙耳机、价格≤200 → 调 MCP search_products → 返回符合条件的商品列表</li>
+</ul>
+<h4 id="332-orderagent">3.3.2 OrderAgent（订单跟踪助手）</h4>
+<ul>
+<li><strong>职责</strong>：查询订单状态、跟踪物流、处理退换货、解答售后问题。通俗说就是"问订单找它"。</li>
+<li><strong>关联 MCP 工具</strong>：get_order_status、track_logistics、apply_return、get_return_status</li>
+<li><strong>处理意图</strong>：order_query / logistics_track / return_apply</li>
+<li><strong>处理流程</strong>：用户说"我昨天下的订单什么时候到" → Agent 提取订单号 → 调 MCP get_order_status → 调 track_logistics → 返回物流轨迹和预计送达时间</li>
+</ul>
+<h4 id="333-recommendagent">3.3.3 RecommendAgent（智能导购助手）</h4>
+<ul>
+<li><strong>职责</strong>：个性化商品推荐、促销活动查询、会员权益解答、优惠计算。通俗说就是"想要推荐找它"。</li>
+<li><strong>关联 MCP 工具</strong>：get_user_profile、get_recommendations、query_promotions、calculate_discount</li>
+<li><strong>处理意图</strong>：recommend_query / promotion_query / member_benefit</li>
+<li><strong>处理流程</strong>：用户说"送妈妈什么礼物好" → Agent 调 get_user_profile 看用户画像 → 调 get_recommendations 筛选适合中老年的商品 → 结合用户预算生成推荐</li>
+</ul>
+<h3 id="34-mcp">3.4 MCP 工具清单</h3>
+<p><strong>外部 MCP 工具（对接电商平台系统）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>功能说明</th>
+<th>参数</th>
+<th>返回</th>
+<th>所属 Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>search_products</td>
+<td>按条件搜索商品</td>
+<td>keyword, category, min_price, max_price</td>
+<td>商品列表(名称/价格/销量/评分)</td>
+<td>ProductAgent</td>
+</tr>
+<tr>
+<td>get_product_detail</td>
+<td>查询商品详情</td>
+<td>product_id</td>
+<td>详情(规格/参数/评价/图文)</td>
+<td>ProductAgent</td>
+</tr>
+<tr>
+<td>check_inventory</td>
+<td>检查库存状态</td>
+<td>product_id, sku_id</td>
+<td>库存数量/是否可购买</td>
+<td>ProductAgent</td>
+</tr>
+<tr>
+<td>compare_prices</td>
+<td>对比商品价格</td>
+<td>product_ids(列表)</td>
+<td>价格对比表(含优惠后价格)</td>
+<td>ProductAgent</td>
+</tr>
+<tr>
+<td>get_order_status</td>
+<td>查询订单状态</td>
+<td>order_id</td>
+<td>订单状态/商品清单/支付金额</td>
+<td>OrderAgent</td>
+</tr>
+<tr>
+<td>track_logistics</td>
+<td>查询物流信息</td>
+<td>order_id 或 logistics_no</td>
+<td>物流轨迹/预计送达时间</td>
+<td>OrderAgent</td>
+</tr>
+<tr>
+<td>apply_return</td>
+<td>申请退换货</td>
+<td>order_id, reason, type(退/换)</td>
+<td>退换单号/取件安排</td>
+<td>OrderAgent</td>
+</tr>
+<tr>
+<td>get_return_status</td>
+<td>查询退换进度</td>
+<td>return_id</td>
+<td>当前进度/退款金额/预计到账</td>
+<td>OrderAgent</td>
+</tr>
+<tr>
+<td>get_user_profile</td>
+<td>获取用户画像</td>
+<td>username</td>
+<td>偏好/历史购买/会员等级/积分</td>
+<td>RecommendAgent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>内部 MCP 工具（系统内部功能）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>功能说明</th>
+<th>参数</th>
+<th>返回</th>
+<th>所属 Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>get_recommendations</td>
+<td>生成个性化推荐</td>
+<td>username, scenario(送礼/自用/...)</td>
+<td>推荐商品列表(含推荐理由)</td>
+<td>RecommendAgent</td>
+</tr>
+<tr>
+<td>query_promotions</td>
+<td>查询当前促销活动</td>
+<td>category(可选)</td>
+<td>活动列表(满减/折扣/优惠券)</td>
+<td>RecommendAgent</td>
+</tr>
+<tr>
+<td>calculate_discount</td>
+<td>计算优惠后价格</td>
+<td>product_id, coupon_id(可选)</td>
+<td>原价/优惠/最终价格</td>
+<td>RecommendAgent</td>
+</tr>
+<tr>
+<td>save_shopping_record</td>
+<td>保存购买记录</td>
+<td>username, product_id, amount</td>
+<td>保存成功/失败</td>
+<td>OrderAgent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="341">3.4.1 外部系统对接方式</h3>
+<p>本项目的 MCP 工具并不是自己造数据，而是<strong>对接甲方（电商平台）已有的业务系统</strong>。作为 Agent 开发工程师，我们的核心工作就是"把甲方的业务系统 API 包装成 LLM 能调用的 MCP 工具"。</p>
+<p><strong>① 外部系统是什么</strong></p>
+<p>甲方（电商平台）提供 4 类业务系统：
+- <strong>商品系统</strong>：存储全平台商品的 SKU、价格、库存、规格参数、图文详情、用户评价
+- <strong>订单系统</strong>：存储用户的订单信息（下单时间、商品清单、支付金额、订单状态）
+- <strong>物流系统</strong>：对接第三方物流（顺丰/圆通/中通等），提供运单轨迹、预计送达时间
+- <strong>用户行为系统</strong>：存储用户的浏览历史、购买记录、会员等级、偏好标签</p>
+<p><strong>② 甲方怎么给我们</strong></p>
+<p>甲方（电商平台技术部）提供：
+- <strong>RESTful API</strong>：每个业务系统暴露 HTTP 接口（如 <code>GET /api/v1/orders/{order_id}</code>）
+- <strong>OpenAPI 文档</strong>：Swagger 格式，描述每个接口的 URL、请求参数、响应结构
+- <strong>测试环境</strong>：独立的测试环境 + 测试账号，供我们联调
+- <strong>鉴权方式</strong>：AppKey + AppSecret 签名（每个请求 Header 带签名，防止接口被滥用）</p>
+<p><strong>③ 我们怎么包装成 MCP 工具</strong></p>
+<p>我们的工作分三步：
+1. <strong>写 Python 函数</strong>：用 httpx 异步调用甲方 API
+2. <strong>字段映射 + 格式转换</strong>：甲方的字段名（如 <code>ord_status</code>、<code>logistics_name</code>）对 LLM 不友好，我们要映射成中文友好字段（如 "订单状态"、"快递公司"）；甲方的状态码（如 <code>ord_status=3</code>）要翻译成可读文本（如 "已发货"）
+3. <strong>注册成 MCP 工具</strong>：用 <code>@mcp.tool()</code> 装饰器注册，LLM 就能通过自然语言调用</p>
+<p><strong>④ 代码示例：对接甲方订单系统</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 以&quot;查询订单详情&quot;为例：对接甲方的订单系统</span>
+<span class="c1"># 甲方 API：GET https://api.ec-client.com/v1/orders/{order_id}</span>
+<span class="c1"># 鉴权：Header 带 AppKey + HMAC-SHA256 签名</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hmac</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;ecommerce-mcp&quot;</span><span class="p">)</span>
+
+<span class="c1"># 订单状态映射：甲方的数字编码 → LLM 友好的中文</span>
+<span class="n">ORDER_STATUS_MAP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;待付款&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;待发货&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;已发货&quot;</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;已签收&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;已取消&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;退款中&quot;</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">build_auth_headers</span><span class="p">(</span><span class="n">app_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">app_secret</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;构造鉴权 Header（AppKey + HMAC 签名）&quot;&quot;&quot;</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+    <span class="n">sign_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">app_key</span><span class="si">}{</span><span class="n">timestamp</span><span class="si">}{</span><span class="n">app_secret</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app_secret</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">sign_str</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;X-App-Key&quot;</span><span class="p">:</span> <span class="n">app_key</span><span class="p">,</span>
+        <span class="s2">&quot;X-Timestamp&quot;</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+        <span class="s2">&quot;X-Signature&quot;</span><span class="p">:</span> <span class="n">signature</span>
+    <span class="p">}</span>
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_order_status</span><span class="p">(</span><span class="n">order_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;查询订单详情（对接甲方订单系统）&quot;&quot;&quot;</span>
+    <span class="c1"># 1. 用 httpx 调甲方 API</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;https://api.ec-client.com/v1/orders/</span><span class="si">{</span><span class="n">order_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="n">build_auth_headers</span><span class="p">(</span><span class="n">APP_KEY</span><span class="p">,</span> <span class="n">APP_SECRET</span><span class="p">),</span>
+        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span>  <span class="c1"># 鉴权：校验订单归属</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span>
+    <span class="p">)</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="c1"># 2. 字段映射：甲方的字段名 → LLM 友好的字段名</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;订单号&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;order_no&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;状态&quot;</span><span class="p">:</span> <span class="n">ORDER_STATUS_MAP</span><span class="p">[</span><span class="n">raw</span><span class="p">[</span><span class="s2">&quot;ord_status&quot;</span><span class="p">]],</span>
+        <span class="s2">&quot;下单时间&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;create_time&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;支付金额&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;¥</span><span class="si">{</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;total_amount&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;商品清单&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;名称&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;product_name&quot;</span><span class="p">],</span> <span class="s2">&quot;数量&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;qty&quot;</span><span class="p">],</span> <span class="s2">&quot;单价&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;¥</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;order_items&quot;</span><span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;收货地址&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;shipping_address&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;快递公司&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;logistics_name&quot;</span><span class="p">,</span> <span class="s2">&quot;待分配&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>面试价值</strong>：这一块是面试官必问的——"你们怎么和甲方系统对接的？"。学生能把"调外部 API（httpx）+ 字段映射（甲方字段→LLM 友好字段）+ 注册 MCP 工具（@mcp.tool()）"的流程说清楚，面试官就会认可这是真实项目经验。</p>
+</blockquote>
+<h3 id="35">3.5 意图分类详表</h3>
+<table>
+<thead>
+<tr>
+<th>意图名</th>
+<th>描述</th>
+<th>典型问法</th>
+<th>路由 Agent</th>
+<th>简单/复杂</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>product_query</td>
+<td>查询商品</td>
+<td>"有没有 200 以内的蓝牙耳机"、"这款手机有什么颜色"</td>
+<td>ProductAgent</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>price_compare</td>
+<td>对比价格</td>
+<td>"这两款手机哪个便宜"、"这个商品哪家店最便宜"</td>
+<td>ProductAgent</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>inventory_check</td>
+<td>检查库存</td>
+<td>"这款还有货吗"、"什么时候补货"</td>
+<td>ProductAgent</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>order_query</td>
+<td>查询订单</td>
+<td>"我的订单发货了吗"、"订单号 123456 的状态"</td>
+<td>OrderAgent</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>logistics_track</td>
+<td>物流跟踪</td>
+<td>"我的快递到哪了"、"什么时候能到"</td>
+<td>OrderAgent</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>return_apply</td>
+<td>退换货</td>
+<td>"这个商品能退吗"、"申请换货"</td>
+<td>OrderAgent</td>
+<td>复杂</td>
+</tr>
+<tr>
+<td>recommend_query</td>
+<td>商品推荐</td>
+<td>"送妈妈什么礼物好"、"推荐一款学生耳机"</td>
+<td>RecommendAgent</td>
+<td>复杂</td>
+</tr>
+<tr>
+<td>promotion_query</td>
+<td>促销活动</td>
+<td>"最近有什么优惠"、"双11 活动什么时候开始"</td>
+<td>RecommendAgent</td>
+<td>简单</td>
+</tr>
+</tbody>
+</table>
+<h3 id="36">3.6 用户隔离机制</h3>
+<p><strong>① 为什么需要隔离</strong></p>
+<p>电商场景下，多用户共用同一套 Agent 系统。如果不做隔离：
+- 用户 A 的订单查询可能返回用户 B 的订单（隐私泄露）
+- 用户 A 的购物偏好影响用户 B 的推荐（推荐不准）
+- 用户 A 的购物车数据混入用户 B 的会话（严重事故）</p>
+<p>电商数据涉及《电子商务法》和《个人信息保护法》，隔离失败会导致用户流失和法律风险。</p>
+<p><strong>② ChatService 按 username 隔离</strong></p>
+<p>每个用户登录时携带 username（用户 ID），ChatService 内部用 <code>functools.lru_cache</code> + TTL 缓存为每个用户维护独立的 Agent 实例：
+- maxsize=100（最多同时缓存 100 个用户实例）
+- TTL=1800s（30 分钟无活动自动清理）
+- 不同 username 拿到完全独立的对话历史和 Agent 状态</p>
+<p><strong>③ MySQL 按 user_id 隔离</strong></p>
+<p>所有持久化数据表（chat_history、order_record、shopping_preference）都包含 username 字段，所有查询强制加 <code>WHERE username = ?</code> 条件。例如：
+- 查询订单：<code>SELECT * FROM order_record WHERE username = 'user_456'</code>
+- 查询偏好：<code>SELECT * FROM shopping_preference WHERE username = 'user_456'</code></p>
+<p><strong>④ 示意图</strong></p>
+<p><img alt="用户隔离机制" src="../img/%E7%94%A8%E6%88%B7%E9%9A%94%E7%A6%BB%E6%9C%BA%E5%88%B6.png" /></p>
+<p><strong>⑤ 面试话术</strong></p>
+<p>"电商场景用户量大、并发高，隔离很重要。我们做了两层隔离：第一层是 ChatService，按 username 缓存，每个用户独立的 Agent 实例和对话上下文，maxsize=100，TTL=30分钟；第二层是 MySQL，所有表都带 username 字段，查询时强制加 WHERE 条件。大促期间通过水平扩展（多实例 + 负载均衡）保障隔离效果。"</p>
+<h4 id="_4">记忆模块实现细节</h4>
+<p><img alt="记忆模块架构" src="../img/05-%E7%94%B5%E5%95%86%E9%9B%B6%E5%94%AE%E8%A1%8C%E4%B8%9A-%E8%AE%B0%E5%BF%86%E6%A8%A1%E5%9D%97.png" /></p>
+<blockquote>
+<p><em>记忆模块三层架构图：短期记忆（TTLCache）→ 长期记忆（MySQL）→ 行业特定记忆，读写策略与清理策略如图所示</em>
+<strong>① 短期记忆（TTLCache）</strong></p>
+</blockquote>
+<p>用 TTLCache 存储当前会话的对话历史，TTL=1800s（30 分钟），maxsize=50 条消息。用于多轮对话上下文保持。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">cachetools</span><span class="w"> </span><span class="kn">import</span> <span class="n">TTLCache</span>
+
+<span class="c1"># 短期记忆：存当前会话对话历史</span>
+<span class="c1"># maxsize=50 条消息，TTL=1800s（30 分钟无活动自动清理）</span>
+<span class="n">short_memory</span> <span class="o">=</span> <span class="n">TTLCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">1800</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_message</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;添加对话消息到短期记忆&quot;&quot;&quot;</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">_messages&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">short_memory</span><span class="p">:</span>
+        <span class="n">short_memory</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">short_memory</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="n">role</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_recent_messages</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;获取最近对话历史&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">short_memory</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">_messages&quot;</span><span class="p">,</span> <span class="p">[])</span>
+</code></pre></div>
+<p><strong>② 长期记忆（MySQL 表结构）</strong></p>
+<p>电商场景需要 4 张长期记忆表：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- ① 用户画像表（购物偏好、尺码、常用收货地址）</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">user_profiles</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">shopping_preference</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w">          </span><span class="c1">-- 购物偏好（如&quot;偏爱数码产品&quot;&quot;喜欢日系风格&quot;）</span>
+<span class="w">    </span><span class="n">clothing_size</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="w">         </span><span class="c1">-- 常穿尺码（如 L/XL/XXL）</span>
+<span class="w">    </span><span class="n">default_address</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w">              </span><span class="c1">-- 常用收货地址</span>
+<span class="w">    </span><span class="n">preferred_brands</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w">             </span><span class="c1">-- 偏好品牌</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_username</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- ② 订单记录表（永久保存，涉及售后和财务）</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">order_history</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">order_id</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">product_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="n">amount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<span class="w">    </span><span class="n">order_status</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_username</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">),</span>
+<span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_order_id</span><span class="w"> </span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- ③ 浏览历史表（90 天清理）</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">browsing_history</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">product_id</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">product_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="n">category</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+<span class="w">    </span><span class="n">viewed_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_username</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">),</span>
+<span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_viewed_at</span><span class="w"> </span><span class="p">(</span><span class="n">viewed_at</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- ④ 购物车表（30 天失效）</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">cart_items</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">product_id</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">quantity</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">added_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="w">    </span><span class="n">expires_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span><span class="w">              </span><span class="c1">-- 购物车项过期时间</span>
+<span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_username</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p><strong>③ 行业特定记忆</strong></p>
+<p>电商场景的记忆不只是"记住对话"，还要记住用户的购物特征，让推荐更精准：</p>
+<table>
+<thead>
+<tr>
+<th>用户说过</th>
+<th>系统记忆</th>
+<th>后续效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"我穿 L 码"</td>
+<td>存入 <code>user_profiles.clothing_size = 'L'</code></td>
+<td>推荐衣服时自动选 L 码，不用每次问</td>
+</tr>
+<tr>
+<td>"我家住在上海"</td>
+<td>存入 <code>user_profiles.default_address</code></td>
+<td>推荐商品优先发货地华东，物流更快</td>
+</tr>
+<tr>
+<td>"我买过这个耳机"</td>
+<td>存入 <code>order_history</code></td>
+<td>下次推荐搭配商品（如耳机收纳包、替换耳垫）</td>
+</tr>
+<tr>
+<td>"我喜欢苹果手机"</td>
+<td>存入 <code>user_profiles.preferred_brands</code></td>
+<td>新品上架时自动提醒"您关注的品牌上新了"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>④ 读写策略</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymysql</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cachetools</span><span class="w"> </span><span class="kn">import</span> <span class="n">TTLCache</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MemoryManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;电商记忆管理器：短期（TTLCache）+ 长期（MySQL）&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 短期记忆：当前会话对话历史</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">short_memory</span> <span class="o">=</span> <span class="n">TTLCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">1800</span><span class="p">)</span>
+        <span class="c1"># 长期记忆：MySQL 连接</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s2">&quot;ecommerce&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;获取用户完整记忆（短期 + 长期合并）&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;recent_messages&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_memory</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">_msg&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+            <span class="s2">&quot;profile&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_profile</span><span class="p">(</span><span class="n">username</span><span class="p">),</span>
+            <span class="s2">&quot;recent_orders&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_recent_orders</span><span class="p">(</span><span class="n">username</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_query_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;查询用户画像（长期记忆）&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+            <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT shopping_preference, clothing_size, default_address &quot;</span>
+                <span class="s2">&quot;FROM user_profiles WHERE username = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">username</span><span class="p">,)</span>
+            <span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;偏好&quot;</span><span class="p">,</span> <span class="s2">&quot;尺码&quot;</span><span class="p">,</span> <span class="s2">&quot;地址&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">))</span> <span class="k">if</span> <span class="n">row</span> <span class="k">else</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_query_recent_orders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;查询最近订单&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+            <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT order_id, product_name, amount FROM order_history &quot;</span>
+                <span class="s2">&quot;WHERE username = </span><span class="si">%s</span><span class="s2"> ORDER BY created_at DESC LIMIT </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;订单号&quot;</span><span class="p">,</span> <span class="s2">&quot;商品&quot;</span><span class="p">,</span> <span class="s2">&quot;金额&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;保存对话到短期记忆&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">_msg&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_memory</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">short_memory</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">short_memory</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="n">role</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">})</span>
+</code></pre></div>
+<p><strong>⑤ 清理策略</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>保留周期</th>
+<th>清理方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对话历史</td>
+<td>180 天</td>
+<td>定时任务归档到冷存储</td>
+<td>超期对话移入归档表，减少主表压力</td>
+</tr>
+<tr>
+<td>订单记录</td>
+<td>永久</td>
+<td>不清理</td>
+<td>涉及售后和财务，必须长期保存</td>
+</tr>
+<tr>
+<td>浏览历史</td>
+<td>90 天</td>
+<td>定时任务删除</td>
+<td>超过 90 天的浏览记录对推荐价值很低</td>
+</tr>
+<tr>
+<td>购物车</td>
+<td>30 天</td>
+<td>自动失效</td>
+<td>购物车商品 30 天后自动标记失效，提醒用户确认</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cleanup_expired_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;定时清理过期数据（每天凌晨 2 点执行）&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+        <span class="c1"># 对话历史：180 天归档</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;INSERT INTO chat_history_archive SELECT * FROM chat_history &quot;</span>
+            <span class="s2">&quot;WHERE created_at &lt; DATE_SUB(NOW(), INTERVAL 180 DAY)&quot;</span>
+        <span class="p">)</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE FROM chat_history WHERE created_at &lt; DATE_SUB(NOW(), INTERVAL 180 DAY)&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># 浏览历史：90 天删除</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE FROM browsing_history WHERE viewed_at &lt; DATE_SUB(NOW(), INTERVAL 90 DAY)&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># 购物车：30 天失效</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;UPDATE cart_items SET quantity = 0 &quot;</span>
+            <span class="s2">&quot;WHERE added_at &lt; DATE_SUB(NOW(), INTERVAL 30 DAY) AND quantity &gt; 0&quot;</span>
+        <span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>⑥ 面试话术</strong></p>
+<p>"电商场景的记忆系统分两层：短期记忆用 TTLCache 存对话历史，30 分钟 TTL，保证多轮对话上下文；长期记忆用 MySQL 存用户画像、订单、浏览历史和购物车，按不同保留周期管理——订单永久保存、浏览历史 90 天、购物车 30 天失效。行业特定记忆方面，用户说过'我穿 L 码'，下次推荐衣服自动选 L 码；用户说过'住在上海'，推荐商品优先华东发货仓；用户买过某款耳机，下次推荐搭配的耳机包和替换耳垫。这套记忆系统让推荐转化率提升了 35%。"</p>
+<h3 id="37">3.7 团队分工</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+<th>人数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI Agent 后端 + MCP 开发（本人）</td>
+<td>三层架构设计、电商 MCP Server 开发、A2A 代理实现</td>
+<td>1</td>
+</tr>
+<tr>
+<td>前端开发</td>
+<td>Web 界面、APP 对接、流式输出</td>
+<td>1</td>
+</tr>
+<tr>
+<td>业务顾问（兼职运营）</td>
+<td>电商规则、促销策略、客服话术</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="38">3.8 常见问题（面试常问）</h3>
+<p><strong>Q1：电商场景下如何处理高并发咨询？</strong></p>
+<p>我们采用 LRU+TTL 缓存管理 ChatService 实例，最大 100 个实例，TTL 30 分钟。简单查询直接路由到对应 Agent，复杂问题才进入 Planning + ReAct。MCP 工具内部做了查询缓存，热门商品查询命中率 60%+。</p>
+<p><strong>Q2：如何实现智能导购？</strong></p>
+<p>RecommendAgent 通过 MCP <code>get_user_profile</code> 获取用户偏好和历史购买，通过 <code>search_products</code> 筛选符合条件的商品。Agent 内部有导购 prompt，能够理解"送妈妈的礼物""适合学生的平价耳机"等模糊需求，结合用户画像生成个性化推荐。</p>
+<p><strong>Q3：如何处理退换货等复杂售后？</strong></p>
+<p>复杂售后任务由 Planning Agent 生成执行计划：Step1: 验证订单 → Step2: 检查退换条件 → Step3: 生成退换单 → Step4: 安排物流取件。ReAct 循环逐步执行，每步观察结果后再决定下一步。</p>
+<p><strong>Q4：电商场景下 MCP 工具的并发压力怎么处理？</strong></p>
+<p>大促期间（双11、618），MCP 工具调用量是平日的 5-10 倍。应对措施：① 热门商品查询结果缓存 60 秒；② 订单/物流查询限流（单用户 10 次/分钟）；③ 非关键查询降级（如推荐列表延迟加载）。系统压测支持 500 QPS 并发。</p>
+<p><strong>Q5：为什么电商场景只用了 13 个 MCP 工具，比金融（15 个）少？</strong></p>
+<p>业务复杂度不同。金融场景需要风险评估、合规审查、投资组合分析等专业工具；电商场景核心是"查商品+查订单+推荐"三大块，工具数量精简。MCP 工具数量不是越多越好，够用、清晰、好维护最重要。</p>
+<p><strong>Q6：导购推荐的准确率是怎么评测的？</strong></p>
+<p>以实际购买作为 ground truth：用户对推荐商品的点击率、加购率、购买率。线上 A/B 测试：AI 推荐组 vs 传统关键词搜索组，购买转化率提升 35%。评测集 1000 条用户真实咨询。</p>
+<p><strong>Q7：用户隔离失效怎么办？</strong></p>
+<p>我们有监控告警：如果检测到用户 A 的查询返回了用户 B 的数据，立即触发告警并降级到人工客服。根因通常是缓存穿透或 SQL 漏写 WHERE 条件，通过代码审查和自动化测试规避。生产环境从未发生过隔离失效事故。</p>
+<h3 id="39">3.9 模型微调（可选）</h3>
+<blockquote>
+<p>⚠️ 本章节为可选内容。如果面试时被问到微调经验，可以参考本节回答。如果项目直接使用通用大模型 + Prompt Engineering 就能满足需求，也可以不做微调。</p>
+</blockquote>
+<p><strong>为什么要微调？</strong></p>
+<p>电商场景对模型的三个特殊要求，通用模型做不到：</p>
+<ol>
+<li><strong>意图识别更精准</strong>：本场景的 8 类意图（product_query / price_compare / inventory_check / order_query / logistics_track / return_apply / recommend_query / promotion_query）都是电商专有表达，通用模型（如 Qwen3-14B）在 zero-shot 下意图识别准确率约 85%，微调后可提升到 95%+</li>
+<li><strong>工具参数提取更规范</strong>：比如用户说"有没有 200 以内的蓝牙耳机，要降噪的"，要提取 <code>{"keyword": "蓝牙耳机", "max_price": 200, "features": ["降噪"]}</code> 这种结构化参数，微调后模型能更稳定输出符合 JSON Schema 的参数</li>
+<li><strong>情感分析识别用户投诉情绪</strong>：电商场景需要识别用户投诉情绪（如"这个耳机质量太差了，我要退货！"），通用模型容易忽略语气中的愤怒情绪，微调后能准确分类为"高优投诉"，触发优先处理流程</li>
+</ol>
+<p><strong>典型场景对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>通用模型表现</th>
+<th>微调后表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>口语化意图识别</td>
+<td>用户说"便宜点的有啥推荐"，模型无法识别为 recommend_query + 价格筛选条件，准确率约 70%</td>
+<td>准确识别为 recommend_query 并提取"低价"偏好，准确率提升至 95%+</td>
+</tr>
+<tr>
+<td>商品参数提取</td>
+<td>用户说"这款手机有 256G 的吗，要黑色的"，模型提取出 <code>{"storage": "256G"}</code> 但遗漏了颜色参数</td>
+<td>稳定提取 <code>{"storage": "256G", "color": "黑色"}</code>，参数完整率从 75% 提升至 94%</td>
+</tr>
+<tr>
+<td>投诉情绪识别</td>
+<td>用户说"你们发货也太慢了吧，等了一周还没到！"，模型只识别为 logistics_track，未识别投诉情绪</td>
+<td>同时识别为 logistics_track + high_priority_complaint，触发优先处理，投诉识别率从 50% 提升至 88%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据准备</strong>：</p>
+<ul>
+<li><strong>数据量</strong>：12 万条电商客服对话 + 4 万条意图分类标注数据</li>
+<li><strong>数据来源</strong>：电商平台历史客服会话记录、人工标注的意图分类数据集、商品详情页信息</li>
+<li><strong>数据格式示例</strong>：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;instruction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;用户说：&#39;有没有 200 以内的蓝牙耳机，要降噪的&#39;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;意图：product_query\n参数：{\&quot;keyword\&quot;: \&quot;蓝牙耳机\&quot;, \&quot;max_price\&quot;: 200, \&quot;features\&quot;: [\&quot;降噪\&quot;]}\n回复：为您找到以下 200 元以内的降噪蓝牙耳机：\n1. 🎧 XX 品牌降噪耳机（¥189）：主动降噪，续航 30h...\n2. 🎧 YY 品牌运动蓝牙耳机（¥159）：IPX5 防水，通话降噪...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;instruction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;用户说：&#39;你们发货也太慢了！等了一周还没到！订单号 654321&#39;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;意图：logistics_track + high_priority_complaint\n参数：{\&quot;order_id\&quot;: \&quot;654321\&quot;, \&quot;urgency\&quot;: \&quot;high\&quot;}\n回复：非常抱歉给您带来不好的体验！已为您紧急查询订单 654321 的物流状态：\n📦 当前状态：包裹已到本市转运中心，预计明天送达\n🎁 补偿方案：已为您发放 10 元无门槛优惠券，下次购物可用\n如有其他问题，可随时联系我。&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>微调方案</strong>：</p>
+<ul>
+<li><strong>方法</strong>：LoRA（低秩自适应），在 Qwen3-14B 上追加电商知识模块</li>
+<li><strong>显卡</strong>：NVIDIA A100 80GB × 2</li>
+<li><strong>训练轮次</strong>：3 个 epoch，每个 epoch 约 4 小时</li>
+<li><strong>微调后效果</strong>：意图识别准确率从 85% 提升至 96%，商品参数提取 JSON 合规率从 75% 提升至 94%，投诉情绪识别 F1 分数从 0.50 提升至 0.91</li>
+</ul>
+<h3 id="310">3.10 模型部署方案（可选）</h3>
+<blockquote>
+<p>⚠️ 本章节为可选内容。实际部署方案需根据甲方提供的硬件环境和并发需求调整。</p>
+</blockquote>
+<h4 id="_5">服务器配置</h4>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>服务器配置</th>
+<th>数量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API 网关</td>
+<td>8 核 16G</td>
+<td>2 台</td>
+<td>FastAPI + Nginx 负载均衡</td>
+</tr>
+<tr>
+<td>主 Agent（DashScope API）</td>
+<td>—</td>
+<td>—</td>
+<td>直接调阿里云 API，无需本地服务器</td>
+</tr>
+<tr>
+<td>意图分类小模型</td>
+<td>NVIDIA A100 80GB × 2</td>
+<td>1 台</td>
+<td>本地部署 Qwen3-14B + LoRA 微调</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td>8 核 16G</td>
+<td>3 台</td>
+<td>商品/订单/物流各 1 台</td>
+</tr>
+<tr>
+<td>MySQL + Redis</td>
+<td>16 核 64G，SSD 1TB</td>
+<td>1 台</td>
+<td>数据持久化 + 缓存</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>为什么主 Agent 走 API 而不是本地部署？</strong> 电商场景的导购推荐和退换货逻辑需要强推理能力（Qwen3-Premium），本地部署 14B 模型在复杂场景下准确率会下降。API 方式按需付费，免去了显卡采购和维护成本，大促期间还能弹性扩容。意图分类是高频调用（每次咨询一次），用本地部署的微调小模型（Qwen3-14B + LoRA）即可，响应快且无 API 调用费，vLLM 的 Continuous Batching 特性可支撑高并发。</p>
+</blockquote>
+<h4 id="_6">推理框架</h4>
+<ul>
+<li><strong>主 Agent</strong>：直接调阿里云 DashScope API（Qwen3-Premium）</li>
+<li><strong>意图分类小模型</strong>：用 <strong>vLLM</strong> 部署（本地），Qwen3-14B + LoRA 微调</li>
+<li><strong>MCP Server</strong>：FastMCP 原生 Python 进程</li>
+</ul>
+<h4 id="_7">推理性能数据</h4>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>首 Token 时间</th>
+<th>吞吐量</th>
+<th>并发承载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DashScope API（主 Agent）</td>
+<td>800ms</td>
+<td>50 tokens/s</td>
+<td>无限（API 弹性）</td>
+</tr>
+<tr>
+<td>vLLM（意图分类）</td>
+<td>100ms</td>
+<td>200 req/s</td>
+<td>500 并发</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td>50ms</td>
+<td>100 req/s</td>
+<td>200 并发</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_8">成本参考</h4>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>月费用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DashScope API</td>
+<td>￥15,000</td>
+<td>日均 10 万咨询 × 30 天，约 3 亿 tokens</td>
+</tr>
+<tr>
+<td>GPU 服务器（意图分类）</td>
+<td>￥20,000</td>
+<td>A100 × 2 租用</td>
+</tr>
+<tr>
+<td>应用服务器</td>
+<td>￥5,000</td>
+<td>8 台（API + MCP + DB）</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td><strong>￥40,000/月</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_9">电商场景特殊考虑</h4>
+<ul>
+<li><strong>高峰期规律</strong>：双 11、618 期间咨询量是日常 10 倍，需要 Kubernetes 水平扩展（HPA），同时预热商品查询缓存（热门商品命中率从 60% 提升至 80%）</li>
+<li><strong>合规要求</strong>：用户购物记录、支付信息等敏感数据不得传到公有云，MCP 工具调用链路需全链路加密；推荐结果需经过内容审核，不得出现虚假宣传</li>
+<li><strong>成本优化</strong>：① 80% 日常咨询走本地部署模型（意图分类 + 简单查询），仅 20% 复杂导购/售后调 DashScope API，月度 API 成本降低 60%+；② 热门商品查询结果缓存 60 秒，减少 MCP 工具调用次数；③ 非高峰时段（凌晨 0-8 点）自动缩容至最小实例数</li>
+</ul>
+<h2 id="_10">四、使用场景示例</h2>
+<h3 id="41">4.1 用户使用总览</h3>
+<p>在了解具体示例之前，先整体看一下用户是怎么使用 ShopAgent AI 的。</p>
+<p><strong>① 产品入口</strong></p>
+<ul>
+<li><strong>买家端</strong>：Web 页面 / 微信小程序 / APP（三端互通，账号共享）</li>
+<li><strong>卖家端</strong>：Web 后台（店铺管理、订单处理）</li>
+<li><strong>客服端</strong>：Web 后台（人工兜底、质检）</li>
+</ul>
+<p><strong>② 注册登录</strong></p>
+<ul>
+<li>买家：手机号 + 验证码注册，支持微信一键登录</li>
+<li>卖家：营业执照认证 + 人工审核</li>
+<li>客服：内部账号，管理员分配</li>
+</ul>
+<p><strong>③ 主界面布局</strong></p>
+<ul>
+<li><strong>左侧</strong>：对话窗口（和 AI 助手聊天）</li>
+<li><strong>中间</strong>：AI 回复区（流式输出，打字机效果）</li>
+<li><strong>右侧面板</strong>：</li>
+<li>买家：购物车 / 最近订单 / 收藏商品</li>
+<li>卖家：店铺数据 / 待处理订单 / 店铺评分</li>
+</ul>
+<p><strong>④ 发起对话</strong></p>
+<ul>
+<li>自由输入：在对话框输入问题，如"有没有 200 以内的蓝牙耳机"</li>
+<li>快捷问题（点击即用）：</li>
+<li>"我那个订单到哪了"</li>
+<li>"这件衣服有 M 码吗"</li>
+<li>"帮我申请退货"</li>
+<li>语音输入：APP 端支持语音转文字</li>
+</ul>
+<p><strong>⑤ 响应方式</strong></p>
+<ul>
+<li>AI 实时回复（SSE 流式输出，打字机效果）</li>
+<li>富文本展示：商品卡片（含图片、价格、评分）、订单状态卡片、物流轨迹图</li>
+<li>需要操作确认时（如退换货），弹出确认框让用户确认</li>
+</ul>
+<p><strong>⑥ 不同角色的差异</strong></p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>能看到的功能</th>
+<th>典型操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>买家</td>
+<td>商品查询、订单跟踪、退换货、导购推荐、优惠活动</td>
+<td>查订单、问推荐、申请退货</td>
+</tr>
+<tr>
+<td>卖家</td>
+<td>店铺管理、订单处理、数据分析、商品上架</td>
+<td>看销售数据、处理退款</td>
+</tr>
+<tr>
+<td>平台客服</td>
+<td>人工兜底、质检、查看对话记录</td>
+<td>接管 AI 处理不了的投诉</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⑦ 首次使用引导</strong></p>
+<p>买家首次登录会弹出简易问卷（可跳过）：
+- "您平时喜欢哪类商品？"（数码 / 服饰 / 家居 / 食品 / 不限）
+- "您的衣服尺码？"（S / M / L / XL / XXL）
+- "常用收货地？"（省 / 市选择）</p>
+<p>填完后 RecommendAgent 会根据这些信息做个性化推荐，不用每次重复说明。</p>
+<p><strong>⑧ 高级功能</strong></p>
+<ul>
+<li><strong>一键下单</strong>：对 AI 推荐的商品，点击"一键下单"直接购买（使用默认地址和支付方式）</li>
+<li><strong>自动比价</strong>：同一商品多个店铺时，自动标注最低价</li>
+<li><strong>优惠提醒</strong>：关注的商品降价时，主动推送提醒</li>
+</ul>
+<p><strong>⑨ 高峰提示</strong></p>
+<p>双 11、618 等大促期间，咨询量暴涨 5-10 倍，可能出现排队。系统会提示"当前咨询人数较多，预计等待 X 分钟，建议错峰咨询"。</p>
+<blockquote>
+<p>💡 了解了整体使用方式后，下面通过 3 个具体示例看看系统是怎么处理真实需求的。</p>
+</blockquote>
+<h3 id="42">4.2 示例一：查询订单（简单任务）</h3>
+<p><strong>用户输入</strong>："我昨天下的订单什么时候能到？订单号 123456"</p>
+<p><strong>系统处理</strong>：
+1. 意图识别 → logistics_track（简单）
+2. 路由 → OrderAgent
+3. MCP 调用 → get_order_status(order_id="123456") → 订单已发货
+4. MCP 调用 → track_logistics(order_id="123456") → 物流已到本市
+5. 返回 → 预计明天送达</p>
+<p><strong>AI 回复</strong>：
+"您的订单 123456 已发货，当前物流状态：【已到达XX市转运中心】，预计明天（2026-09-12）下午送达。快递员联系方式：138xxxx1234。"</p>
+<h3 id="43-planning-react">4.3 示例二：退换货处理（复杂任务，Planning + ReAct）</h3>
+<p><strong>用户输入</strong>："我买的耳机有一个没声音，想退货"</p>
+<p><strong>系统处理</strong>（Planning + ReAct 循环）：
+1. <strong>Planning</strong>：Planning Agent 拆解任务：
+   - Step 1: 验证订单 → 调 MCP get_order_status
+   - Step 2: 检查退换条件 → 调 MCP get_product_detail（确认在保修期）
+   - Step 3: 生成退换单 → 调 MCP apply_return
+   - Step 4: 安排物流取件 → Agent 提供取件方式
+2. <strong>ReAct 循环</strong>：
+   - Thought: 需要先验证订单
+   - Action: get_order_status(order_id="789012") → 订单已完成，7 天内
+   - Thought: 符合 7 天无理由退货
+   - Action: get_product_detail(product_id="xxx") → 在保修期
+   - Thought: 可以退货，生成退换单
+   - Action: apply_return(order_id="789012", reason="质量问题", type="退") → 退换单 RT456
+   - Thought: 需要告知用户取件方式
+3. <strong>输出</strong>：退换单号 + 取件指引</p>
+<p><strong>AI 回复</strong>：
+"已为您申请退货，退换单号：RT456。退货原因：商品质量问题。
+📦 取件方式：顺丰快递将在 24 小时内上门取件，请保持原包装完好。
+💰 退款金额：￥299（含运费），预计 3 个工作日内退回原支付账户。
+📞 如有疑问，可拨打客服热线 400-xxx-xxxx。"</p>
+<h3 id="44-agent">4.4 示例三：跨 Agent 协作（导购推荐 + 库存查询）</h3>
+<p><strong>用户输入</strong>："送妈妈什么礼物好？预算 500 以内"</p>
+<p><strong>系统处理</strong>（多 Agent 协作）：
+1. <strong>意图识别</strong>：recommend_query + product_query（需要协作）
+2. <strong>RecommendAgent</strong>：获取用户画像 → 调 get_user_profile → 了解用户消费层级
+3. <strong>RecommendAgent</strong>：生成推荐 → 调 get_recommendations(scenario="送礼", budget=500, target="中老年女性") → 候选 10 件
+4. <strong>ProductAgent</strong>：检查库存 → 调 check_inventory 对每件候选商品检查库存
+5. <strong>RecommendAgent</strong>：查询优惠 → 调 query_promotions → 是否有满减活动
+6. <strong>输出</strong>：综合推荐列表 + 优惠信息 + 库存状态</p>
+<p><strong>AI 回复</strong>：
+"根据您的需求，为妈妈精选 5 件礼物：
+1. 🧣 羊毛围巾（￥399）：100% 羊毛，保暖时尚，有货
+2. 👜 真皮钱包（￥459）：头层牛皮，多卡位设计，有货
+3. 💍 珍珠项链（￥499）：天然淡水珍珠，优雅气质，仅剩 3 件
+4. 🍵 养生茶礼盒（￥299）：枸杞红枣桂圆茶，养生佳品，有货
+5. 🧴 护肤套装（￥488）：补水保湿套装，适合熟龄肌，有货</p>
+<p>🎁 当前活动：满 400 减 50，第 1、2、3、5 件可用！
+💡 推荐第 1 件（羊毛围巾）+ 第 4 件（养生茶）组合，总价 ￥698，用券后 ￥648，实用又暖心。"</p>
+<h2 id="_11">五、项目的业务流程</h2>
+<h3 id="51">5.1 数据流转说明</h3>
+<p>以用户输入"我昨天下的订单什么时候能到？订单号 123456"为例：</p>
+<ol>
+<li><strong>意图识别</strong>：flash 模型识别为"订单查询"意图</li>
+<li><strong>直接路由</strong>：单意图简单任务，直接路由到 OrderAgent</li>
+<li><strong>订单查询</strong>：通过 MCP <code>get_order_status</code> 工具查询订单状态</li>
+<li><strong>物流跟踪</strong>：通过 MCP <code>track_logistics</code> 工具查询物流信息</li>
+<li><strong>结果总结</strong>：Agent 整合订单和物流信息，生成预计送达时间</li>
+<li><strong>回复用户</strong>：SSE 流式输出，包含订单状态、物流轨迹、预计送达时间</li>
+<li><strong>记忆保存</strong>：咨询记录存入 MySQL，用户偏好自动学习</li>
+</ol>
+<h3 id="52">5.2 业务流程图</h3>
+<p><img alt="业务流程图" src="../img/05-%E7%94%B5%E5%95%86%E9%9B%B6%E5%94%AE%E8%A1%8C%E4%B8%9A-%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%9B%BE.png" /></p>
+<h3 id="53">5.3 给面试官的回答话术</h3>
+<p>"ShopAgent AI 是我为电商平台开发的智能客服系统。核心是三层架构：MCP Server 对接商品系统、订单系统、物流系统；三个 A2A Agent 分别负责商品查询、订单跟踪、导购推荐。用户问订单状态，OrderAgent 会调 MCP 工具查订单和物流，秒级返回预计送达时间。导购方面，RecommendAgent 能理解'送妈妈的礼物'这种模糊需求，结合用户画像生成个性化推荐。系统让客服人力成本降低 50%，用户满意度从 65% 提升到 85%。"</p>
+<h2 id="_12">六、项目的成果数据</h2>
+<h3 id="61">6.1 项目分期</h3>
+<table>
+<thead>
+<tr>
+<th>期数</th>
+<th>时间</th>
+<th>完成内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一期</td>
+<td>2025.03-2025.06</td>
+<td>电商 MCP Server 开发、商品/订单检索工具</td>
+</tr>
+<tr>
+<td>二期</td>
+<td>2025.07-2025.09</td>
+<td>A2A Agent 实现、用户记忆系统、Web 服务</td>
+</tr>
+<tr>
+<td>三期</td>
+<td>2025.10-2025.12</td>
+<td>对接物流系统、Docker 部署、上线</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62">6.2 核心指标</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP 工具数量</td>
+<td>13 个</td>
+<td>电商检索 9 + 内部 4</td>
+</tr>
+<tr>
+<td>Agent 数量</td>
+<td>3 个</td>
+<td>Product/Order/Recommend</td>
+</tr>
+<tr>
+<td>意图分类数</td>
+<td>8 类</td>
+<td>覆盖电商全场景</td>
+</tr>
+<tr>
+<td>意图识别准确率</td>
+<td>93%+</td>
+<td>—</td>
+</tr>
+<tr>
+<td>商品查询时间</td>
+<td>&lt; 3 秒</td>
+<td>—</td>
+</tr>
+<tr>
+<td>客服人力成本</td>
+<td>降低 50%</td>
+<td>200 人 → 100 人</td>
+</tr>
+<tr>
+<td>日均咨询量</td>
+<td>10 万+ 次</td>
+<td>—</td>
+</tr>
+<tr>
+<td>热门商品查询命中率</td>
+<td>60%+</td>
+<td>缓存效果</td>
+</tr>
+<tr>
+<td>退换处理自动化率</td>
+<td>70%+</td>
+<td>无需转人工</td>
+</tr>
+<tr>
+<td>MCP 工具调用成功率</td>
+<td>97%+</td>
+<td>含降级重试</td>
+</tr>
+<tr>
+<td>推荐商品购买转化率</td>
+<td>12%</td>
+<td>vs 传统搜索 8%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63">6.3 提效数据</h3>
+<table>
+<thead>
+<tr>
+<th>优化项</th>
+<th>优化前</th>
+<th>优化后</th>
+<th>提升幅度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平均响应时间</td>
+<td>3 分钟</td>
+<td>5 秒</td>
+<td>97% ↓</td>
+</tr>
+<tr>
+<td>客服人力成本</td>
+<td>200 人</td>
+<td>100 人</td>
+<td>50% ↓</td>
+</tr>
+<tr>
+<td>用户满意度</td>
+<td>65%</td>
+<td>85%</td>
+<td>+20%</td>
+</tr>
+<tr>
+<td>首次解决率</td>
+<td>60%</td>
+<td>85%</td>
+<td>+25%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64">6.4 项目交付流程</h3>
+<p><img alt="ToB项目交付流程图" src="../img/ToB%E9%A1%B9%E7%9B%AE%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B%E5%9B%BE.png" /></p>
+<ol>
+<li>电商平台需求调研与场景分析（1 周）</li>
+<li>架构设计：三层架构 + 电商 MCP 工具规划（1 周）</li>
+<li>电商 MCP Server 开发：对接商品/订单系统（3 周）</li>
+<li>A2A Agent 开发：三代理实现（3 周）</li>
+<li>API Server + Web/APP 开发（3 周）</li>
+<li>物流系统对接（2 周）</li>
+<li>性能优化与压力测试（1 周）</li>
+<li>Docker 容器化部署（1 周）</li>
+<li>平台内部试运行与反馈（2 周）</li>
+<li>正式上线与客服培训（1 周）</li>
+</ol>
+<h2 id="agent-loop">七、Agent Loop 适用性分析</h2>
+<h3 id="71-agent-loop">7.1 为什么选择 Agent Loop</h3>
+<p>本项目采用 LangChain 的 Agent Loop（ReAct 循环）作为核心执行引擎，这是由<strong>本场景的业务特点</strong>决定的：</p>
+<ol>
+<li><strong>意图清晰且有限</strong>：本场景的意图共 8 类（product_query / price_compare / inventory_check / order_query / logistics_track / return_apply / recommend_query / promotion_query），每类意图对应的处理流程是固定的——比如"order_query"意图就是"提取订单号 → 调 MCP get_order_status → 整合状态返回"，LLM 不需要在多个分支之间反复跳转。</li>
+<li><strong>任务链短</strong>：绝大多数任务的步骤在 2-4 步之间，ReAct 循环足够处理。比如用户问"我昨天下的订单什么时候到"，Agent 只需要：① 调 MCP get_order_status(order_id="123456") → ② 调 MCP track_logistics(order_id="123456") → ③ 整合物流轨迹和预计送达时间返回。不需要长达 10+ 步的复杂规划。</li>
+<li><strong>步骤可预测</strong>：每一类任务的执行路径是确定的——查商品就是 search_products → get_product_detail，查订单就是 get_order_status → track_logistics，退换货就是 apply_return → get_return_status。不存在"根据前一步结果决定走完全不同的分支"这种复杂条件逻辑——而 LangGraph 的优势（动态条件分支、并行执行、状态机回环）在这种场景下是过度设计。</li>
+<li><strong>无强人机交互需求</strong>：本场景不需要"每一步都让用户确认再继续"的 human-in-the-loop 流程。用户问订单状态，Agent 查完直接返回；用户要退换货，Agent 一次性收集退货原因和取件方式即可。</li>
+</ol>
+<blockquote>
+<p>💡 <strong>面试话术</strong>：面试官问"为什么不用 LangGraph"时，你可以回答——"我们的业务特点是意图清晰（8 类固定意图）、任务链短（2-4 步）、步骤可预测（每类意图走固定工具链），ReAct 循环完全够用。LangGraph 的优势是动态条件分支和并行执行，但我们的场景用不到这些，引入它会增加维护成本，属于过度设计。"</p>
+</blockquote>
+<h3 id="72">7.2 业务场景适配性</h3>
+<p>当然，本场景中也有一些"看似复杂"的任务，但我们通过<strong>简化业务流程</strong>使其适配 ReAct，而不是引入更复杂的执行引擎：</p>
+<ol>
+<li><strong>"双11 秒杀并行库存检查看似要并行"的简化</strong>：用户说"帮我看看这 10 件商品还有没有货"，看似需要 10 次 check_inventory 并行调用。我们简化为串行：Agent 依次调用 10 次 check_inventory，每次都拿到结果再调下一次。实测 10 次串行调用总耗时 3-5 秒，用户体感与并行（&lt;1 秒）差别不大，但系统复杂度大幅下降。</li>
+<li><strong>"大额退款审批看似要条件分支"的简化</strong>：用户要退 2000 元的商品，按规则需要人工客服审核。我们不搞条件分支，而是把"是否需要审核"的判断下沉到 MCP 工具内部——apply_return 工具内部判断退款金额是否超过阈值（如 1000 元），返回结果里直接包含"需人工审核"或"已自动通过"的标识。Agent 只需要根据返回结果告知用户即可，不需要在 Agent 层写 if-else。</li>
+<li><strong>"退换货收集信息看似要多轮人机交互"的简化</strong>：用户说"这个耳机有问题想退"，传统做法是"Agent 问订单号 → 用户答 → Agent 问退货原因 → 用户答 → Agent 问取件方式 → 用户答"3-4 轮交互。我们简化为一次性收集：Agent 在一条回复里把"订单号、退货原因、取件方式"三个选项一次性列出让用户填写，然后一次性调 apply_return 完成申请。从"4 轮交互"简化为"2 轮交互"（收集信息 + 完成申请），ReAct 循环轻松处理。</li>
+</ol>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：ReAct 循环处理本场景 90%+ 的任务绰绰有余，剩下 10% 的"看似复杂"任务（并行库存检查、大额退款审批、退换货信息收集），我们通过<strong>简化业务流程</strong>（串行化 / 工具内部决策 / 一次性收集选项）让它也能用 ReAct 处理。这样既满足业务需求，又保持系统简单可维护——这正是工程上的务实选择。</p>
+</blockquote>
+<h2 id="_13">附录：术语对照表</h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>全称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP</td>
+<td>Model Context Protocol</td>
+<td>大模型调用外部工具的统一协议，像 USB 接口一样通用</td>
+</tr>
+<tr>
+<td>A2A</td>
+<td>Agent-to-Agent</td>
+<td>AI Agent 之间的通信协议，就像同事之间互相派活儿</td>
+</tr>
+<tr>
+<td>GMV</td>
+<td>Gross Merchandise Volume</td>
+<td>商品交易总额，电商平台的核心指标</td>
+</tr>
+<tr>
+<td>SKU</td>
+<td>Stock Keeping Unit</td>
+<td>库存量单位，一个 SKU 代表一种具体商品（如 iPhone 15 黑色 128G）</td>
+</tr>
+<tr>
+<td>SSE</td>
+<td>Server-Sent Events</td>
+<td>服务器向客户端推送流式数据，实现"打字机效果"</td>
+</tr>
+<tr>
+<td>JWT</td>
+<td>JSON Web Token</td>
+<td>用户认证令牌，证明"我是我"</td>
+</tr>
+<tr>
+<td>ReAct</td>
+<td>Reasoning + Acting</td>
+<td>先想再做，LLM 自主决策调用工具的循环模式</td>
+</tr>
+<tr>
+<td>TTLCache</td>
+<td>Time-To-Live Cache</td>
+<td>带过期时间的缓存，超时自动清理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>文档版本</strong>：V2.0 | <strong>创建日期</strong>：2026-09-11 | <strong>适用对象</strong>：SmartVoyage 智慧旅游 AI Agent 课程学员（简历撰写 &amp; 面试准备）</p>
+</blockquote></body></html>

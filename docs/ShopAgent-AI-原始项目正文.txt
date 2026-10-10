@@ -1,0 +1,1437 @@
+1.5 智能电商客服 Agent（ShopAgent AI）
+
+推荐项目名称：以下名称均可在简历中使用，根据面试岗位侧重选择：
+- 通用名：ShopAgent AI 智能电商客服 Agent 系统
+- 偏后端/架构：基于 A2A 多代理的电商智能客服平台
+- 偏算法/数据：基于 LLM + MCP 的电商智能决策系统
+
+一、项目背景
+1.1 所属行业分类
+电商零售 / AI 智能客服与导购。
+1.2 为什么做这个项目
+某头部电商平台年 GMV 超 500 亿，日均咨询量 10 万+，客服团队 200 人。过去客服基于关键词匹配回答，回答生硬且覆盖有限，用户满意度仅 65%。平台决定开发 AI 电商助手——ShopAgent AI，能够理解用户的购物需求，自动查询商品信息、订单状态、物流信息，提供个性化导购建议。
+此前平台使用传统客服机器人，FAQ 匹配率低，复杂问题需转人工。技术部决定采用 AI Agent 架构，通过 MCP 对接商品系统、订单系统、物流系统，实现智能电商客服。
+项目立项的核心驱动力是成本与体验的双重压力。200 人客服团队每年人力成本超 2000 万（按人均年薪 10 万计算），但用户满意度长期徘徊在 65%——用户吐槽"回答像机器人""问半天得不到答案"。更关键的是，大促期间（双11、618）咨询量暴涨 5-10 倍，客服团队根本扛不住，用户排队 30 分钟是常态，流失率高达 15%。
+技术部调研后发现，传统客服机器人的问题在于只能匹配关键词，无法理解用户真实意图。用户问"有没有 200 以内的蓝牙耳机"，机器人只能匹配"蓝牙耳机"关键词，无法理解价格筛选条件；用户问"送妈妈什么礼物好"，机器人直接返回 FAQ 列表，无法结合用户画像做个性化推荐。
+AI Agent 架构的优势在于：LLM 理解自然语言 + MCP 工具调用外部系统 + 多 Agent 协作处理复杂任务。用户说"我昨天下的订单什么时候到"，Agent 能理解这是"物流跟踪"意图，自动调用订单查询和物流跟踪工具，秒级返回结果。这种架构让系统既能处理简单查询（商品咨询、订单跟踪），也能处理复杂任务（退换货、个性化推荐），真正实现"像人一样理解用户需求"。
+项目目标很明确：客服人力成本降低 50%，用户满意度提升到 85%+。通过 AI 助手处理 70% 的常规咨询，让人工客服专注处理复杂投诉和高价值客户，实现"人机协作"的最优配置。
+1.3 项目的痛点
+
+客服负载高：200 人客服团队应对日均 10 万+ 咨询，峰值排队 30 分钟
+商品查询繁琐：客服需切换多个系统查询库存、价格、规格
+订单跟踪慢：用户问订单状态，客服需手动查询物流系统
+导购能力弱：传统机器人无法理解"适合送妈妈的礼物"等模糊需求
+售后处理慢：退换货流程复杂，人工处理耗时长
+
+1.4 项目的价值
+
+7×24 智能客服：AI 助手全天候处理咨询，响应时间从分钟级降至秒级
+商品信息秒查：MCP 工具对接商品系统，秒级返回库存、价格、规格
+订单自动跟踪：MCP 对接物流系统，实时返回订单状态
+智能导购：基于用户偏好和历史购买，个性化推荐商品
+售后自动化：AI 引导用户完成退换货流程，减少人工介入
+
+1.5 目标用户
+
+
+
+用户类型
+使用场景
+规模
+
+
+
+
+购物用户
+商品咨询、订单查询、售后处理
+注册用户 2000 万+，DAU 10-15 万，MAU 150-200 万
+
+
+客服人员
+辅助查询、复杂问题处理
+200 人
+
+
+运营人员
+数据分析、用户画像
+100 人
+
+
+
+关键流量指标：
+- 日均咨询量：10 万+ 次
+- 峰值并发：400-500（大促期间可达 1000+）
+- 高峰期：双11、618、年货节等大促期间
+1.6 业务流程图
+
+1.7 官网/参考链接
+
+淘宝/天猫 —— 国内最大的电商平台。ShopAgent AI 的商品查询、导购推荐功能设计参考了淘宝的智能客服体系。学生上去可观察"阿里小蜜"如何回答商品咨询、如何处理退换货。
+京东 —— 以自营+物流见长的电商。OrderAgent 的物流跟踪功能参考了京东"极速达"的物流查询体验。学生可对比京东客服与淘宝客服的 AI 水平。
+拼多多 —— 主打下沉市场和团购。RecommendAgent 的"平价推荐""拼单推荐"策略参考了拼多多的推荐逻辑。学生可观察拼多多如何用 AI 做个性化推荐。
+Shopify —— 全球领先的独立站 SaaS 平台。本项目 API 层设计参考了 Shopify 的商家后台架构。学生了解即可，注册免费试用可体验完整电商后台。
+有赞 —— 国内主流电商 SaaS 服务商。ProductAgent 的商品管理功能参考了有赞的商品库设计。学生可了解中小商家如何用 SaaS 工具搭建电商系统。
+
+二、简历上的项目
+项目名称：ShopAgent AI 智能电商客服 Agent 系统
+项目时间：2025.03 — 2025.12
+技术栈：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker
+项目背景：为头部电商平台开发 AI 电商客服系统，对接商品系统、订单系统、物流系统，提供智能商品咨询、订单跟踪、售后处理服务。系统采用三层架构（MCP Server → A2A Agent → API Server），通过 A2A 多代理协作处理商品查询、订单跟踪、导购推荐等任务。
+主要职责：
+1. 负责需求分析与方案设计：参与电商运营部、客服部、技术部 3 轮需求评审，梳理 8 类电商意图、13 个 MCP 工具接口规格，输出技术方案文档 20 页
+2. 设计并实现电商 MCP Server：开发 13 个电商 MCP 工具（商品咨询 4 个 + 订单处理 4 个 + 导购推荐 3 个 + 内部业务 2 个），通过 httpx 对接商品系统（PIM）、订单系统（OMS）、库存系统（WMS）、物流系统（TMS），编写接口文档与 Mock 测试
+3. 构建 A2A 多代理系统：实现 ProductAgent（商品咨询）/ OrderAgent（订单处理）/ RecommendAgent（导购推荐）三个子代理，支持 8 类电商意图自动路由，设计 Agent 间任务分发与结果汇聚机制
+4. 实现客户记忆系统：用户画像、购买历史、咨询记录、购物车、浏览历史 MySQL 持久化，按 user_id 严格隔离，设计 TTLCache 短期记忆 + MySQL 长期记忆双层架构
+5. 开发 Web 服务与前端对接：FastAPI + SSE 流式输出 + JWT 认证，编写 RESTful API 18 个接口，对接平台现有用户体系与 Web/APP 前端，支持 618/双 11 大促期间 2000 QPS 峰值
+6. 性能压测与调优：使用 Locust 模拟 1500 并发用户压测（覆盖 618 大促峰值），优化意图识别延迟从 3s 降至 800ms，商品查询响应 < 150ms，系统支持 2000 QPS 主 Agent 并发
+7. 编写技术文档与部署交付：输出系统架构文档、MCP 工具清单、运维手册共 45 页，协助运维团队完成私有化部署与压测验收
+8. 客服培训与交付支持：面向 500 名客服开展 4 场系统使用培训，输出使用手册与 FAQ 文档，收集反馈迭代 15 个优化点，客服满意度提升 25%
+项目成果：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务
+1. 简历解读
+在把上述 8 条职责写进简历之前，先理解它们"为什么这么写"——每一条对应面试官考察的一个能力维度，下面逐条拆解。
+① 关键数据速查（写简历、答面试时随时对照，数字不能写错）
+
+
+
+维度
+数据
+
+
+
+
+项目名称
+ShopAgent AI 智能电商客服 Agent 系统
+
+
+甲方画像
+某头部电商平台，年 GMV 超 500 亿，日均咨询量 10 万+，客服团队 200 人
+
+
+MCP 工具
+13 个（电商检索 9 + 内部业务 4；商品咨询 4 + 订单处理 4 + 导购推荐 3 + 内部 2）
+
+
+Agent
+3 个（ProductAgent 商品咨询 / OrderAgent 订单处理 / RecommendAgent 导购推荐）
+
+
+意图分类
+8 类（product_query / price_compare / inventory_check / order_query / logistics_track / return_apply / recommend_query / promotion_query）
+
+
+职责条数
+8 条（需求分析 / MCP Server / A2A Agent / 记忆系统 / Web 服务 / 压测调优 / 文档交付 / 培训支持）
+
+
+
+② 8 条职责逐条解读（每条对应一个能力维度，面试官会从这一条追问什么，心里要有数）
+
+
+
+#
+职责关键词
+体现的能力维度
+面试官可能的追问
+回答要点
+
+
+
+
+1
+需求分析与方案设计
+沟通与需求理解
+"8 类意图是怎么梳理出来的？"
+3 轮需求评审（运营 / 客服 / 技术），从客服日常高频问题中归纳；20 页技术方案含接口规格、时序图、风险点
+
+
+2
+电商 MCP Server
+工具开发与系统对接
+"13 个 MCP 工具怎么和甲方系统对接的？"
+httpx 异步调 PIM / OMS / WMS / TMS 四套系统；甲方字段→LLM 友好字段映射；签名鉴权（HMAC-SHA256）
+
+
+3
+A2A 多代理系统
+Agent 架构设计
+"3 个 Agent 之间怎么协作？意图怎么路由？"
+主 Agent 做意图分类→路由到对应子 Agent；复杂任务走 Planning + ReAct；Agent 间通过 A2A 协议传递任务与结果
+
+
+4
+客户记忆系统
+数据建模与隔离
+"用户数据怎么隔离？记忆怎么分层？"
+TTLCache 短期（30 min）+ MySQL 长期（用户画像 / 订单 / 浏览 / 购物车）；按 username 严格隔离，WHERE 条件强制
+
+
+5
+Web 服务与前端对接
+工程化能力
+"SSE 流式输出怎么实现？2000 QPS 怎么扛？"
+FastAPI + SSE + JWT；18 个 RESTful 接口；热门查询缓存 + 水平扩展 + 限流
+
+
+6
+性能压测与调优
+性能优化
+"3s → 800ms 是怎么优化的？"
+Locust 模拟 1500 并发；意图识别走本地小模型（去掉一次 LLM API 往返）；热门商品查询缓存 60s
+
+
+7
+技术文档与部署交付
+文档与交付
+"45 页文档包含哪些内容？"
+架构文档 + MCP 工具清单 + 运维手册；Docker Compose 一键部署 6 个服务；协助运维完成压测验收
+
+
+8
+客服培训与交付支持
+沟通与服务
+"500 名客服怎么培训？"
+4 场线下培训（每场 2 小时）；输出使用手册 + FAQ 文档；收集反馈迭代 15 个优化点
+
+
+
+③ 简历撰写要点（避免踩坑）
+
+数字必须一致：13 个 MCP、3 个 Agent、8 类意图、93%+ 准确率——简历 / 面试 / 项目文档必须统一，面试官会交叉验证。
+动词要准：第 1、7、8 条用"参与 / 协助 / 面向"（体现协作），第 2-6 条用"设计并实现 / 构建 / 开发"（体现主导）——不要全部写成"负责"，会显得假。
+结果要可量化：每条职责最好带数字（20 页文档、18 个接口、1500 并发、800ms），避免"大幅优化""显著提升"等模糊表述。
+技术名词大小写：FastAPI（不是 fastapi）、MySQL（不是 mysql）、MCP（全大写）、A2A（全大写）、QPS（全大写）——面试官对大小写敏感。
+
+2. 简历强化（按薪资档次）
+版本一：20K+ 岗位简历版
+
+适合 1-3 年经验、中级 Python 开发岗位
+
+项目名称：ShopAgent AI 智能电商客服 Agent 系统
+项目时间：2025.03 — 2025.12
+技术栈：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker
+项目背景：为头部电商平台开发 AI 电商客服系统，对接商品系统、订单系统、物流系统，提供智能商品咨询、订单跟踪、售后处理服务。系统采用三层架构（MCP Server → A2A Agent → API Server），通过 A2A 多代理协作处理商品查询、订单跟踪、导购推荐等任务。
+主要职责：
+1. 负责需求分析与方案设计：参与电商运营部、客服部、技术部 3 轮需求评审，梳理 8 类电商意图、13 个 MCP 工具接口规格，输出技术方案文档 20 页
+2. 设计并实现电商 MCP Server：开发 13 个电商 MCP 工具（商品咨询 4 个 + 订单处理 4 个 + 导购推荐 3 个 + 内部业务 2 个），通过 httpx 对接商品系统（PIM）、订单系统（OMS）、库存系统（WMS）、物流系统（TMS），编写接口文档与 Mock 测试
+3. 构建 A2A 多代理系统：实现 ProductAgent（商品咨询）/ OrderAgent（订单处理）/ RecommendAgent（导购推荐）三个子代理，支持 8 类电商意图自动路由，设计 Agent 间任务分发与结果汇聚机制
+4. 实现客户记忆系统：用户画像、购买历史、咨询记录、购物车、浏览历史 MySQL 持久化，按 user_id 严格隔离，设计 TTLCache 短期记忆 + MySQL 长期记忆双层架构
+5. 开发 Web 服务与前端对接：FastAPI + SSE 流式输出 + JWT 认证，编写 RESTful API 18 个接口，对接平台现有用户体系与 Web/APP 前端，支持 618/双 11 大促期间 2000 QPS 峰值
+6. 性能压测与调优：使用 Locust 模拟 1500 并发用户压测（覆盖 618 大促峰值），优化意图识别延迟从 3s 降至 800ms，商品查询响应 < 150ms，系统支持 2000 QPS 主 Agent 并发
+7. 编写技术文档与部署交付：输出系统架构文档、MCP 工具清单、运维手册共 45 页，协助运维团队完成私有化部署与压测验收
+8. 客服培训与交付支持：面向 500 名客服开展 4 场系统使用培训，输出使用手册与 FAQ 文档，收集反馈迭代 15 个优化点，客服满意度提升 25%
+项目成果：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务
+
+版本二：30K+ 岗位简历版
+
+适合 3-5 年经验、高级 Python 开发/初级架构岗位
+
+技术栈：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker, LangSmith, vLLM（可选）
+主要职责：
+1. 主导需求分析与架构设计：牵头 3 轮跨部门需求评审（运营/客服/技术），定义 8 类电商意图分类体系与 13 个 MCP 工具接口规范，输出技术方案文档 20 页并评审通过
+2. 主导电商 MCP Server 架构设计：设计三层 MCP 架构（接入层/业务层/数据层），开发 13 个电商 MCP 工具，统一封装 PIM/OMS/WMS/TMS 四套异构系统的 API 鉴权与字段映射
+3. 主导 A2A 多代理协作架构设计：设计"主 Agent 意图路由 + 3 个子 Agent 专业处理"的协作模式，定义 Agent 间任务分发协议与结果汇聚机制，支持 8 类意图自动路由与复杂售后 Planning + ReAct
+4. 主导客户记忆系统架构设计：设计"TTLCache 短期记忆（30min）+ MySQL 长期记忆"双层架构，定义 4 张核心表（用户画像/订单/浏览/购物车）的隔离策略与 TTL 清理机制，支持按 user_id 严格隔离
+5. 主导 Web 服务层与流式输出方案设计：基于 FastAPI 设计 18 个 RESTful 接口，设计 SSE 流式输出 + JWT 认证方案，引入 Redis 做会话缓存与热门查询缓存，支撑 618/双 11 大促 2000 QPS 峰值
+6. 主导性能优化方案设计：基于 LangSmith 全链路追踪定位瓶颈，将意图识别模型本地化（vLLM 部署），优化延迟从 3s 降至 800ms；Locust 压测 1500 并发，输出性能调优报告
+7. 主导技术文档与交付规范制定：输出架构设计文档、MCP 工具规格书、运维手册共 45 页，制定 Docker Compose 编排规范，协助运维完成私有化部署与压测验收
+8. 主导客服培训与迭代优化闭环：面向 500 名客服开展 4 场培训，建立"反馈 → 评估 → 迭代"闭环机制，收集反馈迭代 15 个优化点，客服满意度提升 25%
+项目成果：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务
+
+版本三：40K+ 岗位简历版
+
+适合 5 年+ 经验、技术负责人/架构师岗位
+
+技术栈：Python, LangChain, FastMCP, python-a2a, FastAPI, MySQL, Docker, K8s, Prometheus, LangSmith, vLLM（可选）
+主要职责：
+1. 负责整体架构设计并主导项目立项与技术选型：牵头 3 轮跨部门需求评审，决策采用"MCP + A2A + LangChain Agent"三层架构（对比 LangGraph/AutoGen 等方案），输出 20 页技术方案并完成技术可行性与风险评估
+2. 负责整体架构设计并决策 MCP 工具层架构：决策"统一 MCP Server + 分域工具"的组织方式（商品/订单/导购/内部），制定 13 个 MCP 工具的接口规范与版本管理策略，决策字段映射方案（甲方编码 → LLM 友好字段）与安全鉴权机制（HMAC-SHA256）
+3. 负责整体架构设计并决策 A2A 多代理协作模式：对比 LangGraph 与 A2A 协议后决策采用 A2A，设计"主 Agent 意图分类 + 3 子 Agent 专业处理"拓扑，定义 Agent 间 SLA（响应时间、重试策略、降级方案），支撑 8 类意图自动路由
+4. 负责整体架构设计并决策记忆系统架构与数据治理：决策"TTLCache + MySQL"双层记忆架构，制定数据隔离规范（按 user_id 严格 WHERE）、保留策略（订单永久/浏览 90 天/购物车 30 天）、归档机制，满足《电子商务法》与《个人信息保护法》合规要求
+5. 负责整体架构设计并决策 Web 服务层高可用方案：决策 FastAPI + Redis + K8s HPA 的弹性架构，制定 SSE 流式输出 + JWT 认证 + 限流策略，决策缓存策略（热门商品 60s TTL），支撑 618/双 11 大促 2000 QPS 峰值
+6. 负责整体架构设计并推动性能优化与可观测性体系建设：引入 LangSmith 全链路追踪 + Prometheus + Grafana 构建监控告警体系，决策将意图识别模型本地化（vLLM 部署 Qwen3-14B），推动意图识别延迟从 3s 降至 800ms，输出性能基线与 SLA 报告
+7. 负责整体架构设计并制定交付标准与运维规范：制定 Docker + K8s 部署规范，决策 6 个服务的编排顺序与资源配额，输出架构文档/MCP 工具规格书/运维手册共 45 页，主导压测验收与上线决策
+8. 负责整体架构设计并主导客户成功与持续迭代：面向 500 名客服开展 4 场培训，建立"反馈 → 评估 → 迭代"闭环机制，推动 15 个优化点落地，负责团队技术培养与能力建设，决策后续 RAG 知识库与多模态检索的演进路线
+项目成果：
+- 对接 13 个 MCP 工具，覆盖商品/订单/物流/售后全场景
+- 意图识别准确率 93%+，支持 8 类电商意图自动路由
+- 客服人力成本降低 50%，用户满意度从 65% 提升至 85%
+- Docker 一键部署 6 个服务
+三、项目的附带信息
+3.1 数据规模与来源
+
+MCP 工具数量：电商检索 9 个 + 内部业务 4 个 = 13 个
+对接数据源：商品系统、订单系统、物流系统（顺丰/圆通 API）、用户行为系统
+用户数据量级：注册用户 2000 万+，日均咨询 10 万+ 次
+
+3.2 技术架构说明
+
+
+
+组件
+说明
+
+
+
+
+MCP 工具
+13 个（商品查询/库存检查/价格查询/订单跟踪/物流查询/退换货/...）
+
+
+Agent 数量
+3 个（ProductAgent / OrderAgent / RecommendAgent）
+
+
+意图分类
+8 类（商品咨询/订单查询/物流跟踪/退换货/优惠券/会员权益/导购推荐/促销活动）
+
+
+记忆系统
+用户偏好 + 浏览历史 + 购买记录 + 咨询历史（MySQL 持久化）
+
+
+规划策略
+简单查询直接执行，复杂售后 Planning + ReAct
+
+
+
+
+3.3 Agent 详细说明
+3.3.1 ProductAgent（商品查询助手）
+
+职责：查询商品信息、检查库存、对比价格、解答商品参数问题。通俗说就是"问商品找它"。
+关联 MCP 工具：search_products、get_product_detail、check_inventory、compare_prices
+处理意图：product_query / price_compare / inventory_check
+处理流程：用户说"有没有 200 以内的蓝牙耳机" → Agent 提取品类=蓝牙耳机、价格≤200 → 调 MCP search_products → 返回符合条件的商品列表
+
+3.3.2 OrderAgent（订单跟踪助手）
+
+职责：查询订单状态、跟踪物流、处理退换货、解答售后问题。通俗说就是"问订单找它"。
+关联 MCP 工具：get_order_status、track_logistics、apply_return、get_return_status
+处理意图：order_query / logistics_track / return_apply
+处理流程：用户说"我昨天下的订单什么时候到" → Agent 提取订单号 → 调 MCP get_order_status → 调 track_logistics → 返回物流轨迹和预计送达时间
+
+3.3.3 RecommendAgent（智能导购助手）
+
+职责：个性化商品推荐、促销活动查询、会员权益解答、优惠计算。通俗说就是"想要推荐找它"。
+关联 MCP 工具：get_user_profile、get_recommendations、query_promotions、calculate_discount
+处理意图：recommend_query / promotion_query / member_benefit
+处理流程：用户说"送妈妈什么礼物好" → Agent 调 get_user_profile 看用户画像 → 调 get_recommendations 筛选适合中老年的商品 → 结合用户预算生成推荐
+
+3.4 MCP 工具清单
+外部 MCP 工具（对接电商平台系统）：
+
+
+
+工具名
+功能说明
+参数
+返回
+所属 Agent
+
+
+
+
+search_products
+按条件搜索商品
+keyword, category, min_price, max_price
+商品列表(名称/价格/销量/评分)
+ProductAgent
+
+
+get_product_detail
+查询商品详情
+product_id
+详情(规格/参数/评价/图文)
+ProductAgent
+
+
+check_inventory
+检查库存状态
+product_id, sku_id
+库存数量/是否可购买
+ProductAgent
+
+
+compare_prices
+对比商品价格
+product_ids(列表)
+价格对比表(含优惠后价格)
+ProductAgent
+
+
+get_order_status
+查询订单状态
+order_id
+订单状态/商品清单/支付金额
+OrderAgent
+
+
+track_logistics
+查询物流信息
+order_id 或 logistics_no
+物流轨迹/预计送达时间
+OrderAgent
+
+
+apply_return
+申请退换货
+order_id, reason, type(退/换)
+退换单号/取件安排
+OrderAgent
+
+
+get_return_status
+查询退换进度
+return_id
+当前进度/退款金额/预计到账
+OrderAgent
+
+
+get_user_profile
+获取用户画像
+username
+偏好/历史购买/会员等级/积分
+RecommendAgent
+
+
+
+内部 MCP 工具（系统内部功能）：
+
+
+
+工具名
+功能说明
+参数
+返回
+所属 Agent
+
+
+
+
+get_recommendations
+生成个性化推荐
+username, scenario(送礼/自用/...)
+推荐商品列表(含推荐理由)
+RecommendAgent
+
+
+query_promotions
+查询当前促销活动
+category(可选)
+活动列表(满减/折扣/优惠券)
+RecommendAgent
+
+
+calculate_discount
+计算优惠后价格
+product_id, coupon_id(可选)
+原价/优惠/最终价格
+RecommendAgent
+
+
+save_shopping_record
+保存购买记录
+username, product_id, amount
+保存成功/失败
+OrderAgent
+
+
+
+3.4.1 外部系统对接方式
+本项目的 MCP 工具并不是自己造数据，而是对接甲方（电商平台）已有的业务系统。作为 Agent 开发工程师，我们的核心工作就是"把甲方的业务系统 API 包装成 LLM 能调用的 MCP 工具"。
+① 外部系统是什么
+甲方（电商平台）提供 4 类业务系统：
+- 商品系统：存储全平台商品的 SKU、价格、库存、规格参数、图文详情、用户评价
+- 订单系统：存储用户的订单信息（下单时间、商品清单、支付金额、订单状态）
+- 物流系统：对接第三方物流（顺丰/圆通/中通等），提供运单轨迹、预计送达时间
+- 用户行为系统：存储用户的浏览历史、购买记录、会员等级、偏好标签
+② 甲方怎么给我们
+甲方（电商平台技术部）提供：
+- RESTful API：每个业务系统暴露 HTTP 接口（如 GET /api/v1/orders/{order_id}）
+- OpenAPI 文档：Swagger 格式，描述每个接口的 URL、请求参数、响应结构
+- 测试环境：独立的测试环境 + 测试账号，供我们联调
+- 鉴权方式：AppKey + AppSecret 签名（每个请求 Header 带签名，防止接口被滥用）
+③ 我们怎么包装成 MCP 工具
+我们的工作分三步：
+1. 写 Python 函数：用 httpx 异步调用甲方 API
+2. 字段映射 + 格式转换：甲方的字段名（如 ord_status、logistics_name）对 LLM 不友好，我们要映射成中文友好字段（如 "订单状态"、"快递公司"）；甲方的状态码（如 ord_status=3）要翻译成可读文本（如 "已发货"）
+3. 注册成 MCP 工具：用 @mcp.tool() 装饰器注册，LLM 就能通过自然语言调用
+④ 代码示例：对接甲方订单系统
+# 以"查询订单详情"为例：对接甲方的订单系统
+# 甲方 API：GET https://api.ec-client.com/v1/orders/{order_id}
+# 鉴权：Header 带 AppKey + HMAC-SHA256 签名
+
+import httpx
+import hmac
+import hashlib
+import time
+from fastmcp import FastMCP
+
+mcp = FastMCP("ecommerce-mcp")
+
+# 订单状态映射：甲方的数字编码 → LLM 友好的中文
+ORDER_STATUS_MAP = {
+    1: "待付款", 2: "待发货", 3: "已发货",
+    4: "已签收", 5: "已取消", 6: "退款中"
+}
+
+def build_auth_headers(app_key: str, app_secret: str) -> dict:
+    """构造鉴权 Header（AppKey + HMAC 签名）"""
+    timestamp = str(int(time.time()))
+    sign_str = f"{app_key}{timestamp}{app_secret}"
+    signature = hmac.new(app_secret.encode(), sign_str.encode(), hashlib.sha256).hexdigest()
+    return {
+        "X-App-Key": app_key,
+        "X-Timestamp": timestamp,
+        "X-Signature": signature
+    }
+
+@mcp.tool()
+async def get_order_status(order_id: str, username: str) -> dict:
+    """查询订单详情（对接甲方订单系统）"""
+    # 1. 用 httpx 调甲方 API
+    resp = await httpx.AsyncClient().get(
+        f"https://api.ec-client.com/v1/orders/{order_id}",
+        headers=build_auth_headers(APP_KEY, APP_SECRET),
+        params={"username": username},  # 鉴权：校验订单归属
+        timeout=10.0
+    )
+    raw = resp.json()
+    # 2. 字段映射：甲方的字段名 → LLM 友好的字段名
+    return {
+        "订单号": raw["order_no"],
+        "状态": ORDER_STATUS_MAP[raw["ord_status"]],
+        "下单时间": raw["create_time"],
+        "支付金额": f"¥{raw['total_amount']:.2f}",
+        "商品清单": [
+            {"名称": item["product_name"], "数量": item["qty"], "单价": f"¥{item['price']:.2f}"}
+            for item in raw["order_items"]
+        ],
+        "收货地址": raw["shipping_address"],
+        "快递公司": raw.get("logistics_name", "待分配")
+    }
+
+
+💡 面试价值：这一块是面试官必问的——"你们怎么和甲方系统对接的？"。学生能把"调外部 API（httpx）+ 字段映射（甲方字段→LLM 友好字段）+ 注册 MCP 工具（@mcp.tool()）"的流程说清楚，面试官就会认可这是真实项目经验。
+
+3.5 意图分类详表
+
+
+
+意图名
+描述
+典型问法
+路由 Agent
+简单/复杂
+
+
+
+
+product_query
+查询商品
+"有没有 200 以内的蓝牙耳机"、"这款手机有什么颜色"
+ProductAgent
+简单
+
+
+price_compare
+对比价格
+"这两款手机哪个便宜"、"这个商品哪家店最便宜"
+ProductAgent
+简单
+
+
+inventory_check
+检查库存
+"这款还有货吗"、"什么时候补货"
+ProductAgent
+简单
+
+
+order_query
+查询订单
+"我的订单发货了吗"、"订单号 123456 的状态"
+OrderAgent
+简单
+
+
+logistics_track
+物流跟踪
+"我的快递到哪了"、"什么时候能到"
+OrderAgent
+简单
+
+
+return_apply
+退换货
+"这个商品能退吗"、"申请换货"
+OrderAgent
+复杂
+
+
+recommend_query
+商品推荐
+"送妈妈什么礼物好"、"推荐一款学生耳机"
+RecommendAgent
+复杂
+
+
+promotion_query
+促销活动
+"最近有什么优惠"、"双11 活动什么时候开始"
+RecommendAgent
+简单
+
+
+
+3.6 用户隔离机制
+① 为什么需要隔离
+电商场景下，多用户共用同一套 Agent 系统。如果不做隔离：
+- 用户 A 的订单查询可能返回用户 B 的订单（隐私泄露）
+- 用户 A 的购物偏好影响用户 B 的推荐（推荐不准）
+- 用户 A 的购物车数据混入用户 B 的会话（严重事故）
+电商数据涉及《电子商务法》和《个人信息保护法》，隔离失败会导致用户流失和法律风险。
+② ChatService 按 username 隔离
+每个用户登录时携带 username（用户 ID），ChatService 内部用 functools.lru_cache + TTL 缓存为每个用户维护独立的 Agent 实例：
+- maxsize=100（最多同时缓存 100 个用户实例）
+- TTL=1800s（30 分钟无活动自动清理）
+- 不同 username 拿到完全独立的对话历史和 Agent 状态
+③ MySQL 按 user_id 隔离
+所有持久化数据表（chat_history、order_record、shopping_preference）都包含 username 字段，所有查询强制加 WHERE username = ? 条件。例如：
+- 查询订单：SELECT * FROM order_record WHERE username = 'user_456'
+- 查询偏好：SELECT * FROM shopping_preference WHERE username = 'user_456'
+④ 示意图
+
+⑤ 面试话术
+"电商场景用户量大、并发高，隔离很重要。我们做了两层隔离：第一层是 ChatService，按 username 缓存，每个用户独立的 Agent 实例和对话上下文，maxsize=100，TTL=30分钟；第二层是 MySQL，所有表都带 username 字段，查询时强制加 WHERE 条件。大促期间通过水平扩展（多实例 + 负载均衡）保障隔离效果。"
+记忆模块实现细节
+
+
+记忆模块三层架构图：短期记忆（TTLCache）→ 长期记忆（MySQL）→ 行业特定记忆，读写策略与清理策略如图所示
+① 短期记忆（TTLCache）
+
+用 TTLCache 存储当前会话的对话历史，TTL=1800s（30 分钟），maxsize=50 条消息。用于多轮对话上下文保持。
+from cachetools import TTLCache
+
+# 短期记忆：存当前会话对话历史
+# maxsize=50 条消息，TTL=1800s（30 分钟无活动自动清理）
+short_memory = TTLCache(maxsize=50, ttl=1800)
+
+def add_message(username: str, role: str, content: str):
+    """添加对话消息到短期记忆"""
+    key = f"{username}_messages"
+    if key not in short_memory:
+        short_memory[key] = []
+    short_memory[key].append({"role": role, "content": content})
+
+def get_recent_messages(username: str) -> list:
+    """获取最近对话历史"""
+    return short_memory.get(f"{username}_messages", [])
+
+② 长期记忆（MySQL 表结构）
+电商场景需要 4 张长期记忆表：
+-- ① 用户画像表（购物偏好、尺码、常用收货地址）
+CREATE TABLE user_profiles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+    shopping_preference TEXT,          -- 购物偏好（如"偏爱数码产品""喜欢日系风格"）
+    clothing_size VARCHAR(10),         -- 常穿尺码（如 L/XL/XXL）
+    default_address TEXT,              -- 常用收货地址
+    preferred_brands TEXT,             -- 偏好品牌
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_username (username)
+);
+
+-- ② 订单记录表（永久保存，涉及售后和财务）
+CREATE TABLE order_history (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+    order_id VARCHAR(64) NOT NULL,
+    product_name VARCHAR(255),
+    amount DECIMAL(10,2),
+    order_status VARCHAR(32),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_username (username),
+    INDEX idx_order_id (order_id)
+);
+
+-- ③ 浏览历史表（90 天清理）
+CREATE TABLE browsing_history (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+    product_id VARCHAR(64) NOT NULL,
+    product_name VARCHAR(255),
+    category VARCHAR(64),
+    viewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_username (username),
+    INDEX idx_viewed_at (viewed_at)
+);
+
+-- ④ 购物车表（30 天失效）
+CREATE TABLE cart_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+    product_id VARCHAR(64) NOT NULL,
+    quantity INT DEFAULT 1,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP,              -- 购物车项过期时间
+    INDEX idx_username (username)
+);
+
+③ 行业特定记忆
+电商场景的记忆不只是"记住对话"，还要记住用户的购物特征，让推荐更精准：
+
+
+
+用户说过
+系统记忆
+后续效果
+
+
+
+
+"我穿 L 码"
+存入 user_profiles.clothing_size = 'L'
+推荐衣服时自动选 L 码，不用每次问
+
+
+"我家住在上海"
+存入 user_profiles.default_address
+推荐商品优先发货地华东，物流更快
+
+
+"我买过这个耳机"
+存入 order_history
+下次推荐搭配商品（如耳机收纳包、替换耳垫）
+
+
+"我喜欢苹果手机"
+存入 user_profiles.preferred_brands
+新品上架时自动提醒"您关注的品牌上新了"
+
+
+
+④ 读写策略
+import pymysql
+from cachetools import TTLCache
+
+class MemoryManager:
+    """电商记忆管理器：短期（TTLCache）+ 长期（MySQL）"""
+
+    def __init__(self):
+        # 短期记忆：当前会话对话历史
+        self.short_memory = TTLCache(maxsize=50, ttl=1800)
+        # 长期记忆：MySQL 连接
+        self.db = pymysql.connect(host="localhost", user="root",
+                                  password="xxx", database="ecommerce")
+
+    def get_memory(self, username: str) -> dict:
+        """获取用户完整记忆（短期 + 长期合并）"""
+        return {
+            "recent_messages": self.short_memory.get(f"{username}_msg", []),
+            "profile": self._query_profile(username),
+            "recent_orders": self._query_recent_orders(username),
+        }
+
+    def _query_profile(self, username: str) -> dict:
+        """查询用户画像（长期记忆）"""
+        with self.db.cursor() as cur:
+            cur.execute(
+                "SELECT shopping_preference, clothing_size, default_address "
+                "FROM user_profiles WHERE username = %s", (username,)
+            )
+            row = cur.fetchone()
+            return dict(zip(["偏好", "尺码", "地址"], row)) if row else {}
+
+    def _query_recent_orders(self, username: str, limit: int = 5) -> list:
+        """查询最近订单"""
+        with self.db.cursor() as cur:
+            cur.execute(
+                "SELECT order_id, product_name, amount FROM order_history "
+                "WHERE username = %s ORDER BY created_at DESC LIMIT %s",
+                (username, limit)
+            )
+            return [dict(zip(["订单号", "商品", "金额"], r)) for r in cur.fetchall()]
+
+    def save_message(self, username: str, role: str, content: str):
+        """保存对话到短期记忆"""
+        key = f"{username}_msg"
+        if key not in self.short_memory:
+            self.short_memory[key] = []
+        self.short_memory[key].append({"role": role, "content": content})
+
+⑤ 清理策略
+
+
+
+数据类型
+保留周期
+清理方式
+说明
+
+
+
+
+对话历史
+180 天
+定时任务归档到冷存储
+超期对话移入归档表，减少主表压力
+
+
+订单记录
+永久
+不清理
+涉及售后和财务，必须长期保存
+
+
+浏览历史
+90 天
+定时任务删除
+超过 90 天的浏览记录对推荐价值很低
+
+
+购物车
+30 天
+自动失效
+购物车商品 30 天后自动标记失效，提醒用户确认
+
+
+
+def cleanup_expired_data():
+    """定时清理过期数据（每天凌晨 2 点执行）"""
+    with db.cursor() as cur:
+        # 对话历史：180 天归档
+        cur.execute(
+            "INSERT INTO chat_history_archive SELECT * FROM chat_history "
+            "WHERE created_at < DATE_SUB(NOW(), INTERVAL 180 DAY)"
+        )
+        cur.execute(
+            "DELETE FROM chat_history WHERE created_at < DATE_SUB(NOW(), INTERVAL 180 DAY)"
+        )
+        # 浏览历史：90 天删除
+        cur.execute(
+            "DELETE FROM browsing_history WHERE viewed_at < DATE_SUB(NOW(), INTERVAL 90 DAY)"
+        )
+        # 购物车：30 天失效
+        cur.execute(
+            "UPDATE cart_items SET quantity = 0 "
+            "WHERE added_at < DATE_SUB(NOW(), INTERVAL 30 DAY) AND quantity > 0"
+        )
+    db.commit()
+
+⑥ 面试话术
+"电商场景的记忆系统分两层：短期记忆用 TTLCache 存对话历史，30 分钟 TTL，保证多轮对话上下文；长期记忆用 MySQL 存用户画像、订单、浏览历史和购物车，按不同保留周期管理——订单永久保存、浏览历史 90 天、购物车 30 天失效。行业特定记忆方面，用户说过'我穿 L 码'，下次推荐衣服自动选 L 码；用户说过'住在上海'，推荐商品优先华东发货仓；用户买过某款耳机，下次推荐搭配的耳机包和替换耳垫。这套记忆系统让推荐转化率提升了 35%。"
+3.7 团队分工
+
+
+
+角色
+职责
+人数
+
+
+
+
+AI Agent 后端 + MCP 开发（本人）
+三层架构设计、电商 MCP Server 开发、A2A 代理实现
+1
+
+
+前端开发
+Web 界面、APP 对接、流式输出
+1
+
+
+业务顾问（兼职运营）
+电商规则、促销策略、客服话术
+1
+
+
+
+3.8 常见问题（面试常问）
+Q1：电商场景下如何处理高并发咨询？
+我们采用 LRU+TTL 缓存管理 ChatService 实例，最大 100 个实例，TTL 30 分钟。简单查询直接路由到对应 Agent，复杂问题才进入 Planning + ReAct。MCP 工具内部做了查询缓存，热门商品查询命中率 60%+。
+Q2：如何实现智能导购？
+RecommendAgent 通过 MCP get_user_profile 获取用户偏好和历史购买，通过 search_products 筛选符合条件的商品。Agent 内部有导购 prompt，能够理解"送妈妈的礼物""适合学生的平价耳机"等模糊需求，结合用户画像生成个性化推荐。
+Q3：如何处理退换货等复杂售后？
+复杂售后任务由 Planning Agent 生成执行计划：Step1: 验证订单 → Step2: 检查退换条件 → Step3: 生成退换单 → Step4: 安排物流取件。ReAct 循环逐步执行，每步观察结果后再决定下一步。
+Q4：电商场景下 MCP 工具的并发压力怎么处理？
+大促期间（双11、618），MCP 工具调用量是平日的 5-10 倍。应对措施：① 热门商品查询结果缓存 60 秒；② 订单/物流查询限流（单用户 10 次/分钟）；③ 非关键查询降级（如推荐列表延迟加载）。系统压测支持 500 QPS 并发。
+Q5：为什么电商场景只用了 13 个 MCP 工具，比金融（15 个）少？
+业务复杂度不同。金融场景需要风险评估、合规审查、投资组合分析等专业工具；电商场景核心是"查商品+查订单+推荐"三大块，工具数量精简。MCP 工具数量不是越多越好，够用、清晰、好维护最重要。
+Q6：导购推荐的准确率是怎么评测的？
+以实际购买作为 ground truth：用户对推荐商品的点击率、加购率、购买率。线上 A/B 测试：AI 推荐组 vs 传统关键词搜索组，购买转化率提升 35%。评测集 1000 条用户真实咨询。
+Q7：用户隔离失效怎么办？
+我们有监控告警：如果检测到用户 A 的查询返回了用户 B 的数据，立即触发告警并降级到人工客服。根因通常是缓存穿透或 SQL 漏写 WHERE 条件，通过代码审查和自动化测试规避。生产环境从未发生过隔离失效事故。
+3.9 模型微调（可选）
+
+⚠️ 本章节为可选内容。如果面试时被问到微调经验，可以参考本节回答。如果项目直接使用通用大模型 + Prompt Engineering 就能满足需求，也可以不做微调。
+
+为什么要微调？
+电商场景对模型的三个特殊要求，通用模型做不到：
+
+意图识别更精准：本场景的 8 类意图（product_query / price_compare / inventory_check / order_query / logistics_track / return_apply / recommend_query / promotion_query）都是电商专有表达，通用模型（如 Qwen3-14B）在 zero-shot 下意图识别准确率约 85%，微调后可提升到 95%+
+工具参数提取更规范：比如用户说"有没有 200 以内的蓝牙耳机，要降噪的"，要提取 {"keyword": "蓝牙耳机", "max_price": 200, "features": ["降噪"]} 这种结构化参数，微调后模型能更稳定输出符合 JSON Schema 的参数
+情感分析识别用户投诉情绪：电商场景需要识别用户投诉情绪（如"这个耳机质量太差了，我要退货！"），通用模型容易忽略语气中的愤怒情绪，微调后能准确分类为"高优投诉"，触发优先处理流程
+
+典型场景对比：
+
+
+
+场景
+通用模型表现
+微调后表现
+
+
+
+
+口语化意图识别
+用户说"便宜点的有啥推荐"，模型无法识别为 recommend_query + 价格筛选条件，准确率约 70%
+准确识别为 recommend_query 并提取"低价"偏好，准确率提升至 95%+
+
+
+商品参数提取
+用户说"这款手机有 256G 的吗，要黑色的"，模型提取出 {"storage": "256G"} 但遗漏了颜色参数
+稳定提取 {"storage": "256G", "color": "黑色"}，参数完整率从 75% 提升至 94%
+
+
+投诉情绪识别
+用户说"你们发货也太慢了吧，等了一周还没到！"，模型只识别为 logistics_track，未识别投诉情绪
+同时识别为 logistics_track + high_priority_complaint，触发优先处理，投诉识别率从 50% 提升至 88%
+
+
+
+数据准备：
+
+数据量：12 万条电商客服对话 + 4 万条意图分类标注数据
+数据来源：电商平台历史客服会话记录、人工标注的意图分类数据集、商品详情页信息
+数据格式示例：
+
+{
+  "instruction": "用户说：'有没有 200 以内的蓝牙耳机，要降噪的'",
+  "input": "",
+  "output": "意图：product_query\n参数：{\"keyword\": \"蓝牙耳机\", \"max_price\": 200, \"features\": [\"降噪\"]}\n回复：为您找到以下 200 元以内的降噪蓝牙耳机：\n1. 🎧 XX 品牌降噪耳机（¥189）：主动降噪，续航 30h...\n2. 🎧 YY 品牌运动蓝牙耳机（¥159）：IPX5 防水，通话降噪..."
+}
+
+{
+  "instruction": "用户说：'你们发货也太慢了！等了一周还没到！订单号 654321'",
+  "input": "",
+  "output": "意图：logistics_track + high_priority_complaint\n参数：{\"order_id\": \"654321\", \"urgency\": \"high\"}\n回复：非常抱歉给您带来不好的体验！已为您紧急查询订单 654321 的物流状态：\n📦 当前状态：包裹已到本市转运中心，预计明天送达\n🎁 补偿方案：已为您发放 10 元无门槛优惠券，下次购物可用\n如有其他问题，可随时联系我。"
+}
+
+微调方案：
+
+方法：LoRA（低秩自适应），在 Qwen3-14B 上追加电商知识模块
+显卡：NVIDIA A100 80GB × 2
+训练轮次：3 个 epoch，每个 epoch 约 4 小时
+微调后效果：意图识别准确率从 85% 提升至 96%，商品参数提取 JSON 合规率从 75% 提升至 94%，投诉情绪识别 F1 分数从 0.50 提升至 0.91
+
+3.10 模型部署方案（可选）
+
+⚠️ 本章节为可选内容。实际部署方案需根据甲方提供的硬件环境和并发需求调整。
+
+服务器配置
+
+
+
+组件
+服务器配置
+数量
+说明
+
+
+
+
+API 网关
+8 核 16G
+2 台
+FastAPI + Nginx 负载均衡
+
+
+主 Agent（DashScope API）
+—
+—
+直接调阿里云 API，无需本地服务器
+
+
+意图分类小模型
+NVIDIA A100 80GB × 2
+1 台
+本地部署 Qwen3-14B + LoRA 微调
+
+
+MCP Server
+8 核 16G
+3 台
+商品/订单/物流各 1 台
+
+
+MySQL + Redis
+16 核 64G，SSD 1TB
+1 台
+数据持久化 + 缓存
+
+
+
+
+💡 为什么主 Agent 走 API 而不是本地部署？ 电商场景的导购推荐和退换货逻辑需要强推理能力（Qwen3-Premium），本地部署 14B 模型在复杂场景下准确率会下降。API 方式按需付费，免去了显卡采购和维护成本，大促期间还能弹性扩容。意图分类是高频调用（每次咨询一次），用本地部署的微调小模型（Qwen3-14B + LoRA）即可，响应快且无 API 调用费，vLLM 的 Continuous Batching 特性可支撑高并发。
+
+推理框架
+
+主 Agent：直接调阿里云 DashScope API（Qwen3-Premium）
+意图分类小模型：用 vLLM 部署（本地），Qwen3-14B + LoRA 微调
+MCP Server：FastMCP 原生 Python 进程
+
+推理性能数据
+
+
+
+组件
+首 Token 时间
+吞吐量
+并发承载
+
+
+
+
+DashScope API（主 Agent）
+800ms
+50 tokens/s
+无限（API 弹性）
+
+
+vLLM（意图分类）
+100ms
+200 req/s
+500 并发
+
+
+MCP Server
+50ms
+100 req/s
+200 并发
+
+
+
+成本参考
+
+
+
+项目
+月费用
+说明
+
+
+
+
+DashScope API
+￥15,000
+日均 10 万咨询 × 30 天，约 3 亿 tokens
+
+
+GPU 服务器（意图分类）
+￥20,000
+A100 × 2 租用
+
+
+应用服务器
+￥5,000
+8 台（API + MCP + DB）
+
+
+合计
+￥40,000/月
+—
+
+
+
+电商场景特殊考虑
+
+高峰期规律：双 11、618 期间咨询量是日常 10 倍，需要 Kubernetes 水平扩展（HPA），同时预热商品查询缓存（热门商品命中率从 60% 提升至 80%）
+合规要求：用户购物记录、支付信息等敏感数据不得传到公有云，MCP 工具调用链路需全链路加密；推荐结果需经过内容审核，不得出现虚假宣传
+成本优化：① 80% 日常咨询走本地部署模型（意图分类 + 简单查询），仅 20% 复杂导购/售后调 DashScope API，月度 API 成本降低 60%+；② 热门商品查询结果缓存 60 秒，减少 MCP 工具调用次数；③ 非高峰时段（凌晨 0-8 点）自动缩容至最小实例数
+
+四、使用场景示例
+4.1 用户使用总览
+在了解具体示例之前，先整体看一下用户是怎么使用 ShopAgent AI 的。
+① 产品入口
+
+买家端：Web 页面 / 微信小程序 / APP（三端互通，账号共享）
+卖家端：Web 后台（店铺管理、订单处理）
+客服端：Web 后台（人工兜底、质检）
+
+② 注册登录
+
+买家：手机号 + 验证码注册，支持微信一键登录
+卖家：营业执照认证 + 人工审核
+客服：内部账号，管理员分配
+
+③ 主界面布局
+
+左侧：对话窗口（和 AI 助手聊天）
+中间：AI 回复区（流式输出，打字机效果）
+右侧面板：
+买家：购物车 / 最近订单 / 收藏商品
+卖家：店铺数据 / 待处理订单 / 店铺评分
+
+④ 发起对话
+
+自由输入：在对话框输入问题，如"有没有 200 以内的蓝牙耳机"
+快捷问题（点击即用）：
+"我那个订单到哪了"
+"这件衣服有 M 码吗"
+"帮我申请退货"
+语音输入：APP 端支持语音转文字
+
+⑤ 响应方式
+
+AI 实时回复（SSE 流式输出，打字机效果）
+富文本展示：商品卡片（含图片、价格、评分）、订单状态卡片、物流轨迹图
+需要操作确认时（如退换货），弹出确认框让用户确认
+
+⑥ 不同角色的差异
+
+
+
+角色
+能看到的功能
+典型操作
+
+
+
+
+买家
+商品查询、订单跟踪、退换货、导购推荐、优惠活动
+查订单、问推荐、申请退货
+
+
+卖家
+店铺管理、订单处理、数据分析、商品上架
+看销售数据、处理退款
+
+
+平台客服
+人工兜底、质检、查看对话记录
+接管 AI 处理不了的投诉
+
+
+
+⑦ 首次使用引导
+买家首次登录会弹出简易问卷（可跳过）：
+- "您平时喜欢哪类商品？"（数码 / 服饰 / 家居 / 食品 / 不限）
+- "您的衣服尺码？"（S / M / L / XL / XXL）
+- "常用收货地？"（省 / 市选择）
+填完后 RecommendAgent 会根据这些信息做个性化推荐，不用每次重复说明。
+⑧ 高级功能
+
+一键下单：对 AI 推荐的商品，点击"一键下单"直接购买（使用默认地址和支付方式）
+自动比价：同一商品多个店铺时，自动标注最低价
+优惠提醒：关注的商品降价时，主动推送提醒
+
+⑨ 高峰提示
+双 11、618 等大促期间，咨询量暴涨 5-10 倍，可能出现排队。系统会提示"当前咨询人数较多，预计等待 X 分钟，建议错峰咨询"。
+
+💡 了解了整体使用方式后，下面通过 3 个具体示例看看系统是怎么处理真实需求的。
+
+4.2 示例一：查询订单（简单任务）
+用户输入："我昨天下的订单什么时候能到？订单号 123456"
+系统处理：
+1. 意图识别 → logistics_track（简单）
+2. 路由 → OrderAgent
+3. MCP 调用 → get_order_status(order_id="123456") → 订单已发货
+4. MCP 调用 → track_logistics(order_id="123456") → 物流已到本市
+5. 返回 → 预计明天送达
+AI 回复：
+"您的订单 123456 已发货，当前物流状态：【已到达XX市转运中心】，预计明天（2026-09-12）下午送达。快递员联系方式：138xxxx1234。"
+4.3 示例二：退换货处理（复杂任务，Planning + ReAct）
+用户输入："我买的耳机有一个没声音，想退货"
+系统处理（Planning + ReAct 循环）：
+1. Planning：Planning Agent 拆解任务：
+   - Step 1: 验证订单 → 调 MCP get_order_status
+   - Step 2: 检查退换条件 → 调 MCP get_product_detail（确认在保修期）
+   - Step 3: 生成退换单 → 调 MCP apply_return
+   - Step 4: 安排物流取件 → Agent 提供取件方式
+2. ReAct 循环：
+   - Thought: 需要先验证订单
+   - Action: get_order_status(order_id="789012") → 订单已完成，7 天内
+   - Thought: 符合 7 天无理由退货
+   - Action: get_product_detail(product_id="xxx") → 在保修期
+   - Thought: 可以退货，生成退换单
+   - Action: apply_return(order_id="789012", reason="质量问题", type="退") → 退换单 RT456
+   - Thought: 需要告知用户取件方式
+3. 输出：退换单号 + 取件指引
+AI 回复：
+"已为您申请退货，退换单号：RT456。退货原因：商品质量问题。
+📦 取件方式：顺丰快递将在 24 小时内上门取件，请保持原包装完好。
+💰 退款金额：￥299（含运费），预计 3 个工作日内退回原支付账户。
+📞 如有疑问，可拨打客服热线 400-xxx-xxxx。"
+4.4 示例三：跨 Agent 协作（导购推荐 + 库存查询）
+用户输入："送妈妈什么礼物好？预算 500 以内"
+系统处理（多 Agent 协作）：
+1. 意图识别：recommend_query + product_query（需要协作）
+2. RecommendAgent：获取用户画像 → 调 get_user_profile → 了解用户消费层级
+3. RecommendAgent：生成推荐 → 调 get_recommendations(scenario="送礼", budget=500, target="中老年女性") → 候选 10 件
+4. ProductAgent：检查库存 → 调 check_inventory 对每件候选商品检查库存
+5. RecommendAgent：查询优惠 → 调 query_promotions → 是否有满减活动
+6. 输出：综合推荐列表 + 优惠信息 + 库存状态
+AI 回复：
+"根据您的需求，为妈妈精选 5 件礼物：
+1. 🧣 羊毛围巾（￥399）：100% 羊毛，保暖时尚，有货
+2. 👜 真皮钱包（￥459）：头层牛皮，多卡位设计，有货
+3. 💍 珍珠项链（￥499）：天然淡水珍珠，优雅气质，仅剩 3 件
+4. 🍵 养生茶礼盒（￥299）：枸杞红枣桂圆茶，养生佳品，有货
+5. 🧴 护肤套装（￥488）：补水保湿套装，适合熟龄肌，有货
+🎁 当前活动：满 400 减 50，第 1、2、3、5 件可用！
+💡 推荐第 1 件（羊毛围巾）+ 第 4 件（养生茶）组合，总价 ￥698，用券后 ￥648，实用又暖心。"
+五、项目的业务流程
+5.1 数据流转说明
+以用户输入"我昨天下的订单什么时候能到？订单号 123456"为例：
+
+意图识别：flash 模型识别为"订单查询"意图
+直接路由：单意图简单任务，直接路由到 OrderAgent
+订单查询：通过 MCP get_order_status 工具查询订单状态
+物流跟踪：通过 MCP track_logistics 工具查询物流信息
+结果总结：Agent 整合订单和物流信息，生成预计送达时间
+回复用户：SSE 流式输出，包含订单状态、物流轨迹、预计送达时间
+记忆保存：咨询记录存入 MySQL，用户偏好自动学习
+
+5.2 业务流程图
+
+5.3 给面试官的回答话术
+"ShopAgent AI 是我为电商平台开发的智能客服系统。核心是三层架构：MCP Server 对接商品系统、订单系统、物流系统；三个 A2A Agent 分别负责商品查询、订单跟踪、导购推荐。用户问订单状态，OrderAgent 会调 MCP 工具查订单和物流，秒级返回预计送达时间。导购方面，RecommendAgent 能理解'送妈妈的礼物'这种模糊需求，结合用户画像生成个性化推荐。系统让客服人力成本降低 50%，用户满意度从 65% 提升到 85%。"
+六、项目的成果数据
+6.1 项目分期
+
+
+
+期数
+时间
+完成内容
+
+
+
+
+一期
+2025.03-2025.06
+电商 MCP Server 开发、商品/订单检索工具
+
+
+二期
+2025.07-2025.09
+A2A Agent 实现、用户记忆系统、Web 服务
+
+
+三期
+2025.10-2025.12
+对接物流系统、Docker 部署、上线
+
+
+
+6.2 核心指标
+
+
+
+指标
+数值
+说明
+
+
+
+
+MCP 工具数量
+13 个
+电商检索 9 + 内部 4
+
+
+Agent 数量
+3 个
+Product/Order/Recommend
+
+
+意图分类数
+8 类
+覆盖电商全场景
+
+
+意图识别准确率
+93%+
+—
+
+
+商品查询时间
+< 3 秒
+—
+
+
+客服人力成本
+降低 50%
+200 人 → 100 人
+
+
+日均咨询量
+10 万+ 次
+—
+
+
+热门商品查询命中率
+60%+
+缓存效果
+
+
+退换处理自动化率
+70%+
+无需转人工
+
+
+MCP 工具调用成功率
+97%+
+含降级重试
+
+
+推荐商品购买转化率
+12%
+vs 传统搜索 8%
+
+
+
+6.3 提效数据
+
+
+
+优化项
+优化前
+优化后
+提升幅度
+
+
+
+
+平均响应时间
+3 分钟
+5 秒
+97% ↓
+
+
+客服人力成本
+200 人
+100 人
+50% ↓
+
+
+用户满意度
+65%
+85%
++20%
+
+
+首次解决率
+60%
+85%
++25%
+
+
+
+6.4 项目交付流程
+
+
+电商平台需求调研与场景分析（1 周）
+架构设计：三层架构 + 电商 MCP 工具规划（1 周）
+电商 MCP Server 开发：对接商品/订单系统（3 周）
+A2A Agent 开发：三代理实现（3 周）
+API Server + Web/APP 开发（3 周）
+物流系统对接（2 周）
+性能优化与压力测试（1 周）
+Docker 容器化部署（1 周）
+平台内部试运行与反馈（2 周）
+正式上线与客服培训（1 周）
+
+七、Agent Loop 适用性分析
+7.1 为什么选择 Agent Loop
+本项目采用 LangChain 的 Agent Loop（ReAct 循环）作为核心执行引擎，这是由本场景的业务特点决定的：
+
+意图清晰且有限：本场景的意图共 8 类（product_query / price_compare / inventory_check / order_query / logistics_track / return_apply / recommend_query / promotion_query），每类意图对应的处理流程是固定的——比如"order_query"意图就是"提取订单号 → 调 MCP get_order_status → 整合状态返回"，LLM 不需要在多个分支之间反复跳转。
+任务链短：绝大多数任务的步骤在 2-4 步之间，ReAct 循环足够处理。比如用户问"我昨天下的订单什么时候到"，Agent 只需要：① 调 MCP get_order_status(order_id="123456") → ② 调 MCP track_logistics(order_id="123456") → ③ 整合物流轨迹和预计送达时间返回。不需要长达 10+ 步的复杂规划。
+步骤可预测：每一类任务的执行路径是确定的——查商品就是 search_products → get_product_detail，查订单就是 get_order_status → track_logistics，退换货就是 apply_return → get_return_status。不存在"根据前一步结果决定走完全不同的分支"这种复杂条件逻辑——而 LangGraph 的优势（动态条件分支、并行执行、状态机回环）在这种场景下是过度设计。
+无强人机交互需求：本场景不需要"每一步都让用户确认再继续"的 human-in-the-loop 流程。用户问订单状态，Agent 查完直接返回；用户要退换货，Agent 一次性收集退货原因和取件方式即可。
+
+
+💡 面试话术：面试官问"为什么不用 LangGraph"时，你可以回答——"我们的业务特点是意图清晰（8 类固定意图）、任务链短（2-4 步）、步骤可预测（每类意图走固定工具链），ReAct 循环完全够用。LangGraph 的优势是动态条件分支和并行执行，但我们的场景用不到这些，引入它会增加维护成本，属于过度设计。"
+
+7.2 业务场景适配性
+当然，本场景中也有一些"看似复杂"的任务，但我们通过简化业务流程使其适配 ReAct，而不是引入更复杂的执行引擎：
+
+"双11 秒杀并行库存检查看似要并行"的简化：用户说"帮我看看这 10 件商品还有没有货"，看似需要 10 次 check_inventory 并行调用。我们简化为串行：Agent 依次调用 10 次 check_inventory，每次都拿到结果再调下一次。实测 10 次串行调用总耗时 3-5 秒，用户体感与并行（<1 秒）差别不大，但系统复杂度大幅下降。
+"大额退款审批看似要条件分支"的简化：用户要退 2000 元的商品，按规则需要人工客服审核。我们不搞条件分支，而是把"是否需要审核"的判断下沉到 MCP 工具内部——apply_return 工具内部判断退款金额是否超过阈值（如 1000 元），返回结果里直接包含"需人工审核"或"已自动通过"的标识。Agent 只需要根据返回结果告知用户即可，不需要在 Agent 层写 if-else。
+"退换货收集信息看似要多轮人机交互"的简化：用户说"这个耳机有问题想退"，传统做法是"Agent 问订单号 → 用户答 → Agent 问退货原因 → 用户答 → Agent 问取件方式 → 用户答"3-4 轮交互。我们简化为一次性收集：Agent 在一条回复里把"订单号、退货原因、取件方式"三个选项一次性列出让用户填写，然后一次性调 apply_return 完成申请。从"4 轮交互"简化为"2 轮交互"（收集信息 + 完成申请），ReAct 循环轻松处理。
+
+
+💡 一句话总结：ReAct 循环处理本场景 90%+ 的任务绰绰有余，剩下 10% 的"看似复杂"任务（并行库存检查、大额退款审批、退换货信息收集），我们通过简化业务流程（串行化 / 工具内部决策 / 一次性收集选项）让它也能用 ReAct 处理。这样既满足业务需求，又保持系统简单可维护——这正是工程上的务实选择。
+
+附录：术语对照表
+
+
+
+术语
+全称
+说明
+
+
+
+
+MCP
+Model Context Protocol
+大模型调用外部工具的统一协议，像 USB 接口一样通用
+
+
+A2A
+Agent-to-Agent
+AI Agent 之间的通信协议，就像同事之间互相派活儿
+
+
+GMV
+Gross Merchandise Volume
+商品交易总额，电商平台的核心指标
+
+
+SKU
+Stock Keeping Unit
+库存量单位，一个 SKU 代表一种具体商品（如 iPhone 15 黑色 128G）
+
+
+SSE
+Server-Sent Events
+服务器向客户端推送流式数据，实现"打字机效果"
+
+
+JWT
+JSON Web Token
+用户认证令牌，证明"我是我"
+
+
+ReAct
+Reasoning + Acting
+先想再做，LLM 自主决策调用工具的循环模式
+
+
+TTLCache
+Time-To-Live Cache
+带过期时间的缓存，超时自动清理
+
+
+
+
+
+文档版本：V2.0 | 创建日期：2026-09-11 | 适用对象：SmartVoyage 智慧旅游 AI Agent 课程学员（简历撰写 & 面试准备）
